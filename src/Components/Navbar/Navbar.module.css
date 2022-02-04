@@ -3,10 +3,10 @@
     background-color: dodgerblue;
 }
 
-.item {
+.item a {
     color: white;
 }
 
-.item.active {
-    color: brown;
+.item a.activeLink {
+    color: gold;
 }
