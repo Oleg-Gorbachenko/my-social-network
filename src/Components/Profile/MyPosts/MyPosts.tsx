@@ -2,13 +2,11 @@ import React from "react";
 import classes from './MyPosts.module.css'
 import {Post} from "./Post/Post";
 
-export const MyPosts = () => {
-    let posts = [
-        {id: 1, message: 'How are you!', likesCount: 15},
-        {id: 2, message: 'It\'s my first post', likesCount: 26}
-    ]
 
-let postsElements = posts.map(p => <Post message={p.message} likesCount={p.likesCount} id={p.id}/> )
+export const MyPosts = () => {
+
+
+    let postsElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount} id={p.id}/> )
 
 
     return (
@@ -23,7 +21,7 @@ let postsElements = posts.map(p => <Post message={p.message} likesCount={p.likes
                 </div>
             </div>
             <div className={classes.posts}>
-                {postsElements}
+                {props.postsElements}
             </div>
         </div>
     )
