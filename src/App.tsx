@@ -8,9 +8,10 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {News} from "./Components/News/News";
 import {Music} from "./Components/Music/Music";
 import {Settings} from "./Components/Settings/Settings";
+import {StateType} from "./index";
 
 
-function App() {
+function App(props:StateType) {
     return (
         <BrowserRouter>
             <div className="app-wrapper">
@@ -18,8 +19,8 @@ function App() {
                 <Navbar/>
                 <div className='app-wrapper-content'>
                     <Routes>
-                        <Route path='/dialogs/*' element={<Dialogs/>}/>
-                        <Route path='/profile/*' element={<Profile/>}/>
+                        <Route path='/dialogs/*' element={<Dialogs dialogs={props.state.dialogsPage.dialogs }messages={props.state.dialogsPage.messages}/>}/>
+                        <Route path='/profile/*' element={<Profile posts={props.state.profilePage.posts}/>}/>
                         <Route path='/news/*' element={<News/>}/>
                         <Route path='/music/*' element={<Music/>}/>
                         <Route path='/settings/*' element={<Settings/>}/>

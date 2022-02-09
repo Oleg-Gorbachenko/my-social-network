@@ -32,10 +32,12 @@ export type RootStateType = {
     dialogsPage: DialogsPageType
     sidebar: SidebarType
 }
+export type StateType = {
+    state:RootStateType
+}
 
 
-
-let state:RootStateType = {
+let state = {
     profilePage: {
         posts: [
             {id: 1, message: 'How are you!', likesCount: 15},
@@ -64,7 +66,7 @@ let state:RootStateType = {
 
 ReactDOM.render(
     <React.StrictMode>
-        <App />
+        <App state={state}/>
     </React.StrictMode>,
     document.getElementById('root')
 );

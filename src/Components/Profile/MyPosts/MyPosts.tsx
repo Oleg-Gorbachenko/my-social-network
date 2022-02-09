@@ -1,9 +1,10 @@
 import React from "react";
 import classes from './MyPosts.module.css'
 import {Post} from "./Post/Post";
+import {ProfilePageType} from "../../../index";
 
 
-export const MyPosts = () => {
+export const MyPosts = (props:ProfilePageType) => {
 
 
     let postsElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount} id={p.id}/> )
@@ -21,7 +22,7 @@ export const MyPosts = () => {
                 </div>
             </div>
             <div className={classes.posts}>
-                {props.postsElements}
+                {postsElements}
             </div>
         </div>
     )
