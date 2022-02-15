@@ -1,6 +1,6 @@
 import React from "react";
 
-
+// типизация
 export type MessageType = {
     id: number
     message: string
@@ -16,23 +16,25 @@ export type PostType = {
 }
 export type ProfilePageType = {
     posts: Array<PostType>
+    addPost?: (postMessage: string) => void
 }
 export type DialogsPageType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
 }
-export type SidebarType = {
-}
+export type SidebarType = {}
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     sidebar: SidebarType
 }
 export type StateType = {
-    state:RootStateType
+    state: RootStateType
+    addPost?: (postMessage: string) => void
 }
 
- export let state = {
+// хранение данных в State
+export let state = {
     profilePage: {
         posts: [
             {id: 1, message: 'How are you!', likesCount: 15},
@@ -56,4 +58,16 @@ export type StateType = {
         ]
     },
     sidebar: {}
+}
+
+
+// функции
+export let addPost = (postMessage: string) => { //функция добавить пост
+    debugger
+    let newPost = {
+        id: 5,
+        message: (postMessage),
+        likesCount: 0
+    }
+    state.profilePage.posts.push(newPost)
 }
