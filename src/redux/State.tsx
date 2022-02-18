@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 
 // типизация
 export type MessageType = {
@@ -16,7 +16,6 @@ export type PostType = {
 }
 export type ProfilePageType = {
     posts: Array<PostType>
-    addPost?: (postMessage: string) => void
 }
 export type DialogsPageType = {
     dialogs: Array<DialogType>
@@ -28,10 +27,9 @@ export type RootStateType = {
     dialogsPage: DialogsPageType
     sidebar: SidebarType
 }
-export type StateType = {
-    state: RootStateType
-    addPost?: (postMessage: string) => void
-}
+// export type StateType = {
+//     state: RootStateType
+// }
 
 // хранение данных в State
 export let state = {
@@ -60,14 +58,7 @@ export let state = {
     sidebar: {}
 }
 
-
 // функции
-export let addPost = (postMessage: string) => { //функция добавить пост
-    debugger
-    let newPost = {
-        id: 5,
-        message: (postMessage),
-        likesCount: 0
-    }
-    state.profilePage.posts.push(newPost)
-}
+export const addPost = (title: string) => { //функция добавить пост
+    let newPost = {id: 5, message: (title), likesCount: 0 }
+        state.profilePage.posts.push(newPost)}

@@ -8,12 +8,15 @@ import {Route, Routes} from "react-router-dom";
 import {News} from "./Components/News/News";
 import {Music} from "./Components/Music/Music";
 import {Settings} from "./Components/Settings/Settings";
-import {StateType} from "./redux/State";
+import {RootStateType} from "./redux/State";
 
+type MyAppPropsType = {
+    state: RootStateType
+    addPost: (title: string) => void
+}
 
-function App(props:StateType) {
+export function App(props:MyAppPropsType) {
     return (
-
             <div className="app-wrapper">
                 <Header/>
                 <Navbar/>
@@ -23,16 +26,13 @@ function App(props:StateType) {
                                element={<Dialogs dialogs={props.state.dialogsPage.dialogs }
                                                  messages={props.state.dialogsPage.messages}/>}/>
                         <Route path='/profile/*'
-                               element={<Profile posts={props.state.profilePage.posts}
-                                                 addPost={props.addPost}/>}/>
+                               element={<Profile posts={props.state.profilePage.posts} addPost={props.addPost}/>}/>
                         <Route path='/news/*' element={<News/>}/>
                         <Route path='/music/*' element={<Music/>}/>
                         <Route path='/settings/*' element={<Settings/>}/>
                     </Routes>
                 </div>
             </div>
-
     );
 }
 
-export default App;
