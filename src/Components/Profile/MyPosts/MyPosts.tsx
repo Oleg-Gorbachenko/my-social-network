@@ -11,7 +11,6 @@ export type MyPostsPropsType = {
 export const MyPosts = (props: MyPostsPropsType) => {
 
     let [title, setTitle] = useState<string>('')
-    // let newPostElement: RefObject<HTMLTextAreaElement> | undefined = React.createRef();
 
     let postsElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount} id={p.id}/>)
 
