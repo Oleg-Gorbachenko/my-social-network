@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 
 // типизация
 export type MessageType = {
@@ -52,7 +52,7 @@ export let state = {
             {id: 1, message: 'Hi!'},
             {id: 2, message: 'How are you!'},
             {id: 3, message: 'Yo!'},
-            {id: 4, message: 'Abrakadabra'}
+            {id: 4, message: 'I`m fine!'}
         ]
     },
     sidebar: {}
@@ -61,4 +61,4 @@ export let state = {
 // функции
 export const addPost = (title: string) => { //функция добавить пост
     let newPost = {id: 5, message: (title), likesCount: 0 }
-        state.profilePage.posts.push(newPost)}
+        state.profilePage.posts.unshift(newPost)}

@@ -17,8 +17,8 @@ export const Dialogs = (props: DialogsPageType) => {
     }
 
     const buttonStyle = {
-        width:'50px',
-        height:'20px'
+        width: '50px',
+        height: '20px'
     }
 
     return (
