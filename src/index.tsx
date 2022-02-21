@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import {addMessage, addPost, RootStateType, state, subscribe, updateNewPostText} from "./redux/State";
 import {BrowserRouter} from 'react-router-dom';
 
-export let rerenderEntireThree = (state:RootStateType) =>{
+export let rerenderEntireThree = (state: RootStateType) => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
