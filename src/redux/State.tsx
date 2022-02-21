@@ -1,5 +1,9 @@
 import React from "react";
-import { v1 } from "uuid";
+import {v1} from "uuid";
+
+let rerenderEntireThree = (state:RootStateType) => {
+
+}
 
 // типизация
 export type MessageType = {
@@ -17,6 +21,7 @@ export type PostType = {
 }
 export type ProfilePageType = {
     posts: Array<PostType>
+    newPostText: string
 }
 export type DialogsPageType = {
     dialogs: Array<DialogType>
@@ -30,12 +35,13 @@ export type RootStateType = {
 }
 
 // хранение данных в State
-export let state = {
+export let state: RootStateType = {
     profilePage: {
         posts: [
             {id: v1(), message: 'How are you!', likesCount: 15},
             {id: v1(), message: 'It\'s my first post', likesCount: 26}
-        ]
+        ],
+        newPostText: 'Написать пост'
     },
     dialogsPage: {
         dialogs: [
@@ -57,10 +63,24 @@ export let state = {
 }
 
 // функции
-export const addPost = (title: string) => { //функция добавить пост
-    let newPost = {id: v1(), message: (title), likesCount: 0 }
-        state.profilePage.posts.unshift(newPost)}
+export const addPost = () => { //функция добавить пост
+    let newPost = {id: v1(), message: state.profilePage.newPostText, likesCount: 0}
+    state.profilePage.posts.unshift(newPost)
+    state.profilePage.newPostText = ''
+    rerenderEntireThree(state)
+}
 
 export const addMessage = (title: string) => { //функция добавить сообщение
     let newMessage = {id: v1(), message: title}
-        state.dialogsPage.messages.unshift(newMessage)}
+    state.dialogsPage.messages.unshift(newMessage)
+    rerenderEntireThree(state)
+}
+
+export const updateNewPostText = (newText: string) => { //функция обновляет запись в посте через стэйт
+    state.profilePage.newPostText = newText
+    rerenderEntireThree(state)
+}
+
+export const subscribe = (observer:(state:RootStateType)=>void) => {
+    rerenderEntireThree = observer
+}

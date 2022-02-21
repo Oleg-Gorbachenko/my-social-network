@@ -12,8 +12,9 @@ import {RootStateType} from "./redux/State";
 
 type MyAppPropsType = {
     state: RootStateType
-    addPost: (title: string) => void
+    addPost: () => void
     addMessage: (title: string) => void
+    updateNewPostText: (newText: string) => void
 }
 
 export function App(props: MyAppPropsType) {
@@ -29,7 +30,9 @@ export function App(props: MyAppPropsType) {
                                              addMessage={props.addMessage}/>}/>
                     <Route path='/profile/*'
                            element={<Profile posts={props.state.profilePage.posts}
-                                             addPost={props.addPost}/>}/>
+                                             addPost={props.addPost}
+                                             newPostText={props.state.profilePage.newPostText}
+                                             updateNewPostText={props.updateNewPostText}/>}/>
                     <Route path='/news/*' element={<News/>}/>
                     <Route path='/music/*' element={<Music/>}/>
                     <Route path='/settings/*' element={<Settings/>}/>
