@@ -12,10 +12,10 @@ export type MyPostsPropsType = {
 
 export const MyPosts = (props: MyPostsPropsType) => {
 
-    let postsElements = props.posts.map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount} id={p.id}/>)
+    const postsElements = props.posts.map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount} id={p.id}/>)
 
 
-    let onClickButtonHandler = () => {
+    const onClickButtonHandler = () => {
         props.addPost(props.newPostText)
     }
 

@@ -14,8 +14,8 @@ export const Dialogs = (props: MyDialogsPropsType) => {
 
     const [title, setTitle] = useState<string>('')
 
-    let dialogsElements = props.dialogs.map(d => <DialogItem key={d.id} name={d.name} id={d.id}/>)
-    let messagesElements = props.messages.map((m) => <Message key={m.id} message={m.message} id={m.id}/>)
+    const dialogsElements = props.dialogs.map(d => <DialogItem key={d.id} name={d.name} id={d.id}/>)
+    const messagesElements = props.messages.map((m) => <Message key={m.id} message={m.message} id={m.id}/>)
 
     const onChangeTextareaHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
         setTitle(event.currentTarget.value)

@@ -38,11 +38,9 @@ export type StoreType = {
     addMessage: (title: string) => void
     updateNewPostText: (newText: string) => void
 }
-export type StorePropsType = {
-    store: StoreType
-}
 
-export let store: StoreType = {
+// стор
+export const store: StoreType = {
     state: {
         profilePage: {
             posts: [
@@ -85,6 +83,8 @@ export let store: StoreType = {
         rerenderEntireThree(store)
     }
 }
-export const subscribe = (observer: (store: StoreType) => void) => { // функция отрисовки
+
+// функция отрисовки
+export const subscribe = (observer: (store: StoreType) => void) => {
     rerenderEntireThree = observer
 }
