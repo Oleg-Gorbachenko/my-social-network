@@ -3,21 +3,22 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import {App} from './App';
 import reportWebVitals from './reportWebVitals';
-import {addMessage, addPost, RootStateType, state, subscribe, updateNewPostText} from "./redux/State";
+import {store, StoreType, subscribe} from "./redux/State";
 import {BrowserRouter} from 'react-router-dom';
 
-export let rerenderEntireThree = (state: RootStateType) => {
+export let rerenderEntireThree = (store: StoreType) => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
-                <App state={state} addPost={addPost} addMessage={addMessage} updateNewPostText={updateNewPostText}/>
+                <App state={store.state} addPost={store.addPost} addMessage={store.addMessage}
+                     updateNewPostText={store.updateNewPostText}/>
             </BrowserRouter>
         </React.StrictMode>,
         document.getElementById('root')
     );
 }
 
-rerenderEntireThree(state);
+rerenderEntireThree(store);
 subscribe(rerenderEntireThree)
 
 

@@ -5,8 +5,8 @@ import {PostType} from "../../../redux/State";
 
 export type MyPostsPropsType = {
     posts: Array<PostType>
-    addPost: (newPostText: string) => void
     newPostText: string
+    addPost: (newPostText: string) => void
     updateNewPostText: (newText: string) => void
 }
 
