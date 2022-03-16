@@ -1,5 +1,9 @@
 import {v1} from "uuid";
 
+const ADD_POST = "ADD-POST"
+const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
+const ADD_MESSAGE = "ADD-MESSAGE"
+const UPDATE_NEW_MESSAGE_TEXT ="UPDATE-NEW-MESSAGE-TEXT"
 
 // типизация
 export type MessageType = {
@@ -37,27 +41,11 @@ export type StoreType = {
     getState: () => RootStateType
     dispatch: (action: ActionsTypes) => void
 }
-type AddPostActionType = {
-    type: 'ADD-POST'
-    newPostText: string
-}
-type UpdateNewPostTextActionType = {
-    type: 'UPDATE-NEW-POST-TEXT'
-    newText: string
-}
-type AddMessageActionType = {
-    type: 'ADD-MESSAGE'
-    newMessageText: string
-}
-type UpdateNewMessageTextActionType = {
-    type: 'UPDATE-NEW-MESSAGE-TEXT'
-    newTextMessage: string
-}
 export type ActionsTypes =
-    AddPostActionType
-    | UpdateNewPostTextActionType
-    | AddMessageActionType
-    | UpdateNewMessageTextActionType
+    ReturnType<typeof addPostAC>
+    | ReturnType<typeof updateNewPostTextAC>
+    | ReturnType<typeof addMessageAC>
+    | ReturnType<typeof updateNewMessageTextAC>
 
 // STORE
 export const store: StoreType = {
@@ -99,27 +87,37 @@ export const store: StoreType = {
     },
     dispatch(action) {
         //функция добавить пост
-        if (action.type === 'ADD-POST') {
+        if (action.type === ADD_POST) {
             const newPost = {id: v1(), message: action.newPostText, likesCount: 0}
             this._state.profilePage.posts.unshift(newPost)
             this._state.profilePage.newPostText = ''
             this._rerenderEntireThree()
             //функция обновляет запись в посте через стэйт
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+        } else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state.profilePage.newPostText = action.newText
             this._rerenderEntireThree()
             //функция добавить сообщение
-        } else if (action.type === 'ADD-MESSAGE') {
+        } else if (action.type === ADD_MESSAGE) {
             const newMessage = {id: v1(), message: action.newMessageText}
             this._state.dialogsPage.messages.unshift(newMessage)
             this._state.dialogsPage.newMessageText = ''
             this._rerenderEntireThree()
             //функция обновляет запись в сообщении через стэйт
-        } else if (action.type === 'UPDATE-NEW-MESSAGE-TEXT') {
+        } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
             this._state.dialogsPage.newMessageText = action.newTextMessage
             this._rerenderEntireThree()
         }
     }
 }
-
-
+export const addPostAC = (newPostText:string) => {
+    return {type: ADD_POST, newPostText: newPostText} as const
+}
+export const updateNewPostTextAC = (text: string) => {
+    return {type: UPDATE_NEW_POST_TEXT, newText: text} as const
+}
+export const addMessageAC = (newMessageText:string) => {
+    return {type: ADD_MESSAGE, newMessageText: newMessageText} as const
+}
+export const updateNewMessageTextAC = (newTextMessage: string) => {
+    return {type: UPDATE_NEW_MESSAGE_TEXT, newTextMessage: newTextMessage} as const
+}
