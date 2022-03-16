@@ -55,7 +55,7 @@ export const store: StoreType = {
                 {id: v1(), message: 'How are you!', likesCount: 15},
                 {id: v1(), message: 'It\'s my first post', likesCount: 26}
             ],
-            newPostText: 'Написать пост'
+            newPostText: ''
         },
         dialogsPage: {
             dialogs: [
@@ -72,7 +72,7 @@ export const store: StoreType = {
                 {id: v1(), message: 'Yo!'},
                 {id: v1(), message: 'I`m fine!'}
             ],
-            newMessageText: 'Напишите сообщение'
+            newMessageText: ''
         },
         sidebar: {}
     },
