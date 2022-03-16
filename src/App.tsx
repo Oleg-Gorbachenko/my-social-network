@@ -23,14 +23,14 @@ export function App(props: MyAppPropsType) {
             <div className='app-wrapper-content'>
                 <Routes>
                     <Route path='/dialogs/*'
-                           element={<Dialogs dialogs={state.dialogsPage.dialogs}
+                           element={<Dialogs dispatch={props.store.dispatch.bind(props.store)}
+                                             dialogs={state.dialogsPage.dialogs}
                                              messages={state.dialogsPage.messages}
-                                             addMessage={props.store.addMessage.bind(props.store)}/>}/>
+                                             newMessageText={state.dialogsPage.newMessageText}/>}/>
                     <Route path='/profile/*'
                            element={<Profile posts={state.profilePage.posts}
-                                             addPost={props.store.addPost.bind(props.store)}
                                              newPostText={state.profilePage.newPostText}
-                                             updateNewPostText={props.store.updateNewPostText.bind(props.store)}/>}/>
+                                             dispatch={props.store.dispatch.bind(props.store)}/>}/>
                     <Route path='/news/*' element={<News/>}/>
                     <Route path='/music/*' element={<Music/>}/>
                     <Route path='/settings/*' element={<Settings/>}/>

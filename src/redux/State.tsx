@@ -22,6 +22,7 @@ export type ProfilePageType = {
 export type DialogsPageType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
+    newMessageText: string
 }
 export type SidebarType = {}
 export type RootStateType = {
@@ -31,13 +32,32 @@ export type RootStateType = {
 }
 export type StoreType = {
     _state: RootStateType
-    addPost: (newPostText: string) => void
-    addMessage: (title: string) => void
-    updateNewPostText: (newText: string) => void
     _rerenderEntireThree: () => void
     subscribe: (observer: () => void) => void
     getState: () => RootStateType
+    dispatch: (action: ActionsTypes) => void
 }
+type AddPostActionType = {
+    type: 'ADD-POST'
+    newPostText: string
+}
+type UpdateNewPostTextActionType = {
+    type: 'UPDATE-NEW-POST-TEXT'
+    newText: string
+}
+type AddMessageActionType = {
+    type: 'ADD-MESSAGE'
+    newMessageText: string
+}
+type UpdateNewMessageTextActionType = {
+    type: 'UPDATE-NEW-MESSAGE-TEXT'
+    newTextMessage: string
+}
+export type ActionsTypes =
+    AddPostActionType
+    | UpdateNewPostTextActionType
+    | AddMessageActionType
+    | UpdateNewMessageTextActionType
 
 // STORE
 export const store: StoreType = {
@@ -63,36 +83,42 @@ export const store: StoreType = {
                 {id: v1(), message: 'How are you!'},
                 {id: v1(), message: 'Yo!'},
                 {id: v1(), message: 'I`m fine!'}
-            ]
+            ],
+            newMessageText: 'Напишите сообщение'
         },
         sidebar: {}
+    },
+    _rerenderEntireThree() {
     },
     getState() {
         return this._state;
     },
-    _rerenderEntireThree() {
-    },
-    //функция добавить пост
-    addPost() {
-        const newPost = {id: v1(), message: this._state.profilePage.newPostText, likesCount: 0}
-        this._state.profilePage.posts.unshift(newPost)
-        this._state.profilePage.newPostText = ''
-        this._rerenderEntireThree()
-    },
-    //функция добавить сообщение
-    addMessage(title: string) {
-        const newMessage = {id: v1(), message: title}
-        this._state.dialogsPage.messages.unshift(newMessage)
-        this._rerenderEntireThree()
-    },
-    //функция обновляет запись в посте через стэйт
-    updateNewPostText(newText: string) {
-        this._state.profilePage.newPostText = newText
-        this._rerenderEntireThree()
-    },
     // функция отрисовки
     subscribe(observer) {
         this._rerenderEntireThree = observer
+    },
+    dispatch(action) {
+        //функция добавить пост
+        if (action.type === 'ADD-POST') {
+            const newPost = {id: v1(), message: action.newPostText, likesCount: 0}
+            this._state.profilePage.posts.unshift(newPost)
+            this._state.profilePage.newPostText = ''
+            this._rerenderEntireThree()
+            //функция обновляет запись в посте через стэйт
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+            this._state.profilePage.newPostText = action.newText
+            this._rerenderEntireThree()
+            //функция добавить сообщение
+        } else if (action.type === 'ADD-MESSAGE') {
+            const newMessage = {id: v1(), message: action.newMessageText}
+            this._state.dialogsPage.messages.unshift(newMessage)
+            this._state.dialogsPage.newMessageText = ''
+            this._rerenderEntireThree()
+            //функция обновляет запись в сообщении через стэйт
+        } else if (action.type === 'UPDATE-NEW-MESSAGE-TEXT') {
+            this._state.dialogsPage.newMessageText = action.newTextMessage
+            this._rerenderEntireThree()
+        }
     }
 }
 
