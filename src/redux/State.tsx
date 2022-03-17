@@ -1,9 +1,7 @@
 import {v1} from "uuid";
-
-const ADD_POST = "ADD-POST"
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
-const ADD_MESSAGE = "ADD-MESSAGE"
-const UPDATE_NEW_MESSAGE_TEXT ="UPDATE-NEW-MESSAGE-TEXT"
+import profileReducer, {addPostAC, updateNewPostTextAC} from "./profile-reducer";
+import dialogsReducer, {addMessageAC, updateNewMessageTextAC} from "./dialogs-reducer";
+import sidebarReducer from "./sidebar-reducer";
 
 // типизация
 export type MessageType = {
@@ -86,38 +84,10 @@ export const store: StoreType = {
         this._rerenderEntireThree = observer
     },
     dispatch(action) {
-        //функция добавить пост
-        if (action.type === ADD_POST) {
-            const newPost = {id: v1(), message: action.newPostText, likesCount: 0}
-            this._state.profilePage.posts.unshift(newPost)
-            this._state.profilePage.newPostText = ''
-            this._rerenderEntireThree()
-            //функция обновляет запись в посте через стэйт
-        } else if (action.type === UPDATE_NEW_POST_TEXT) {
-            this._state.profilePage.newPostText = action.newText
-            this._rerenderEntireThree()
-            //функция добавить сообщение
-        } else if (action.type === ADD_MESSAGE) {
-            const newMessage = {id: v1(), message: action.newMessageText}
-            this._state.dialogsPage.messages.unshift(newMessage)
-            this._state.dialogsPage.newMessageText = ''
-            this._rerenderEntireThree()
-            //функция обновляет запись в сообщении через стэйт
-        } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
-            this._state.dialogsPage.newMessageText = action.newTextMessage
-            this._rerenderEntireThree()
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action)
+        this._rerenderEntireThree()
     }
 }
-export const addPostAC = (newPostText:string) => {
-    return {type: ADD_POST, newPostText: newPostText} as const
-}
-export const updateNewPostTextAC = (text: string) => {
-    return {type: UPDATE_NEW_POST_TEXT, newText: text} as const
-}
-export const addMessageAC = (newMessageText:string) => {
-    return {type: ADD_MESSAGE, newMessageText: newMessageText} as const
-}
-export const updateNewMessageTextAC = (newTextMessage: string) => {
-    return {type: UPDATE_NEW_MESSAGE_TEXT, newTextMessage: newTextMessage} as const
-}
+

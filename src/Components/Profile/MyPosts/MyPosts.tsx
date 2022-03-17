@@ -1,7 +1,8 @@
 import React, {ChangeEvent} from "react";
 import classes from './MyPosts.module.css'
 import {Post} from "./Post/Post";
-import {ActionsTypes, addPostAC, PostType, updateNewPostTextAC} from "../../../redux/State";
+import {ActionsTypes, PostType} from "../../../redux/State";
+import {addPostAC, updateNewPostTextAC} from "../../../redux/profile-reducer";
 
 export type MyPostsPropsType = {
     posts: Array<PostType>
@@ -29,7 +30,8 @@ export const MyPosts = (props: MyPostsPropsType) => {
             <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea placeholder='Enter your message' value={props.newPostText} onChange={onChangeTextHandler}/>
+                    <textarea placeholder='Enter your message' value={props.newPostText}
+                              onChange={onChangeTextHandler}/>
                 </div>
                 <div>
                     <button onClick={onClickButtonHandler}>Add post</button>
