@@ -1,7 +1,7 @@
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import {store} from "./redux/State";
 import {rerenderEntireThree} from "./render";
+import store from "./redux/redux-store";
 
 
 store.subscribe(rerenderEntireThree)
