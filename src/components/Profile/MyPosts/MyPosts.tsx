@@ -1,28 +1,28 @@
 import React, {ChangeEvent} from "react";
 import classes from './MyPosts.module.css'
 import {Post} from "./Post/Post";
-import {ActionsTypes, PostType} from "../../../redux/store";
-import {addPostAC, updateNewPostTextAC} from "../../../redux/profile-reducer";
+import {StoreType} from "../../../redux/store";
 
 export type MyPostsPropsType = {
-    posts: Array<PostType>
-    newPostText: string
-    dispatch: (action: ActionsTypes) => void
+    updateNewPostText: (text: string) => void
+    addPost: () => void
+    store: StoreType
 }
 
 export const MyPosts = (props: MyPostsPropsType) => {
 
-    const postsElements = props.posts.map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount}
-                                                     id={p.id}/>)
+    const postsElements = props.store.getState().profilePage.posts.map(p => <Post key={p.id} message={p.message}
+                                                                                  likesCount={p.likesCount}
+                                                                                  id={p.id}/>)
 
 
     const onClickButtonHandler = () => {
-        props.dispatch(addPostAC(props.newPostText))
+        props.addPost()
     }
 
     const onChangeTextHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        let text = event.currentTarget.value
-        props.dispatch(updateNewPostTextAC(text))
+        const text = event.currentTarget.value
+        props.updateNewPostText(text)
     }
 
     return (
@@ -30,7 +30,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
             <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea placeholder='Enter your message' value={props.newPostText}
+                    <textarea placeholder='Enter your message' value={props.store.getState().profilePage.newPostText}
                               onChange={onChangeTextHandler}/>
                 </div>
                 <div>
