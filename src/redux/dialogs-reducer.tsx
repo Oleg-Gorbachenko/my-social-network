@@ -22,7 +22,7 @@ const initialState = {
     newMessageText: ''
 }
 
-const dialogsReducer = (state: DialogsPageType = initialState, action: ActionsTypes) => {
+const dialogsReducer = (state: DialogsPageType = initialState, action: ActionsTypes): DialogsPageType => {
     //функция добавить сообщение
     switch (action.type) {
         case ADD_MESSAGE:
@@ -40,10 +40,16 @@ const dialogsReducer = (state: DialogsPageType = initialState, action: ActionsTy
 }
 
 export const addMessageAC = (newMessageText: string) => {
-    return {type: ADD_MESSAGE, newMessageText: newMessageText} as const
+    return {
+        type: ADD_MESSAGE,
+        newMessageText: newMessageText
+    } as const
 }
 export const updateNewMessageTextAC = (newTextMessage: string) => {
-    return {type: UPDATE_NEW_MESSAGE_TEXT, newTextMessage: newTextMessage} as const
+    return {
+        type: UPDATE_NEW_MESSAGE_TEXT,
+        newTextMessage: newTextMessage
+    } as const
 }
 
 export default dialogsReducer

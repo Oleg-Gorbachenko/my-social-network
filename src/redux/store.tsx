@@ -34,7 +34,7 @@ export type RootStateType = {
 }
 export type StoreType = {
     _state: RootStateType
-    _rerenderEntireThree: () => void
+    _rerenderEntireThree: (getState: () => RootStateType) => void
     subscribe: (observer: () => void) => void
     getState: () => RootStateType
     dispatch: (action: ActionsTypes) => void
@@ -87,7 +87,7 @@ export const store: StoreType = {
         this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
         this._state.sidebar = sidebarReducer(this._state.sidebar, action)
-        this._rerenderEntireThree()
+        this._rerenderEntireThree(this.getState)
     }
 }
 

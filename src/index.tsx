@@ -1,10 +1,27 @@
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import {rerenderEntireThree} from "./render";
-import store from "./redux/redux-store";
+import {store} from "./redux/store";
+import ReactDOM from "react-dom";
+import React from "react";
+import {BrowserRouter} from "react-router-dom";
+import {App} from "./App";
 
 
-store.subscribe(rerenderEntireThree)
+export const rerenderEntireThree = () => {
+    ReactDOM.render(
+        <React.StrictMode>
+            <BrowserRouter>
+                <App store={store}/>
+            </BrowserRouter>
+        </React.StrictMode>,
+        document.getElementById('root')
+    );
+}
+rerenderEntireThree();
+
+store.subscribe(() => {
+    rerenderEntireThree()
+})
 
 reportWebVitals();
 rerenderEntireThree()

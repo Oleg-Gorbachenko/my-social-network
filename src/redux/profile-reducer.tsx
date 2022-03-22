@@ -11,7 +11,7 @@ const initialState = {
     newPostText: ''
 }
 
-const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes) => {
+const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes): ProfilePageType => {
     //функция добавить пост
     switch (action.type) {
         case ADD_POST:
@@ -28,10 +28,16 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
     }
 }
 export const addPostAC = (newPostText: string) => {
-    return {type: ADD_POST, newPostText: newPostText} as const
+    return {
+        type: ADD_POST,
+        newPostText: newPostText
+    } as const
 }
 export const updateNewPostTextAC = (text: string) => {
-    return {type: UPDATE_NEW_POST_TEXT, newText: text} as const
+    return {
+        type: UPDATE_NEW_POST_TEXT,
+        newText: text
+    } as const
 }
 
 export default profileReducer

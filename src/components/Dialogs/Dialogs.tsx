@@ -18,7 +18,7 @@ export const Dialogs = (props: MyDialogsPropsType) => {
     const messagesElements = props.messages.map((m) => <Message key={m.id} message={m.message} id={m.id}/>)
 
     const onChangeTextareaHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        let text = event.currentTarget.value
+        const text = event.currentTarget.value
         props.dispatch(updateNewMessageTextAC(text))
     }
 
