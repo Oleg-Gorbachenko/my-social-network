@@ -1,27 +1,31 @@
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import {store} from "./redux/store";
 import ReactDOM from "react-dom";
 import React from "react";
 import {BrowserRouter} from "react-router-dom";
 import {App} from "./App";
+import {Provider} from "./StoreContext";
+import {RootStateType} from "./redux/store";
+import store from "./redux/redux-store"
 
 
-export const rerenderEntireThree = () => {
+export const rerenderEntireThree = (state: RootStateType) => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
-                <App store={store}/>
+                <Provider store={store}>
+                    <App/>
+                </Provider>
             </BrowserRouter>
         </React.StrictMode>,
         document.getElementById('root')
     );
 }
-rerenderEntireThree();
+rerenderEntireThree(store.getState());
 
 store.subscribe(() => {
-    rerenderEntireThree()
+    let state = store.getState();
+    rerenderEntireThree(state)
 })
 
 reportWebVitals();
-rerenderEntireThree()

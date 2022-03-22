@@ -1,20 +1,21 @@
 import React, {ChangeEvent} from "react";
 import classes from './MyPosts.module.css'
 import {Post} from "./Post/Post";
-import {StoreType} from "../../../redux/store";
+import {PostType} from "../../../redux/store";
 
 export type MyPostsPropsType = {
     updateNewPostText: (text: string) => void
     addPost: () => void
-    store: StoreType
+    posts: Array<PostType>
+    newPostText: string
 }
 
 export const MyPosts = (props: MyPostsPropsType) => {
 
-    const postsElements = props.store.getState().profilePage.posts.map(p => <Post key={p.id} message={p.message}
-                                                                                  likesCount={p.likesCount}
-                                                                                  id={p.id}/>)
-
+    const postsElements = props.posts.map(p => <Post key={p.id}
+                                                     message={p.message}
+                                                     likesCount={p.likesCount}
+                                                     id={p.id}/>)
 
     const onClickButtonHandler = () => {
         props.addPost()
@@ -30,7 +31,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
             <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea placeholder='Enter your message' value={props.store.getState().profilePage.newPostText}
+                    <textarea placeholder='Enter your message' value={props.newPostText}
                               onChange={onChangeTextHandler}/>
                 </div>
                 <div>

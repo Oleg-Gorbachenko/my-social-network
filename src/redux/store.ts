@@ -34,7 +34,7 @@ export type RootStateType = {
 }
 export type StoreType = {
     _state: RootStateType
-    _rerenderEntireThree: (getState: () => RootStateType) => void
+    _rerenderEntireThree: (state: RootStateType) => void
     subscribe: (observer: () => void) => void
     getState: () => RootStateType
     dispatch: (action: ActionsTypes) => void
@@ -76,18 +76,18 @@ export const store: StoreType = {
     },
     _rerenderEntireThree() {
     },
-    getState() {
-        return this._state;
-    },
     // функция отрисовки
     subscribe(observer) {
         this._rerenderEntireThree = observer
+    },
+    getState() {
+        return this._state;
     },
     dispatch(action) {
         this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
         this._state.sidebar = sidebarReducer(this._state.sidebar, action)
-        this._rerenderEntireThree(this.getState)
+        this._rerenderEntireThree(this.getState())
     }
 }
 
