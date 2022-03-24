@@ -2,22 +2,14 @@ import React, {ChangeEvent} from "react";
 import classes from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {DialogType, MessageType} from "../../redux/store";
+import {DialogsPropsType} from "./DialogsContainer";
 
-export type MyDialogsPropsType = {
-    updateNewMessageText: (text: string) => void
-    onSendMessage: () => void
-    dialogs: Array<DialogType>
-    messages: Array<MessageType>
-    newMessageText: string
-}
+export const Dialogs = (props: DialogsPropsType) => {
 
-export const Dialogs = (props: MyDialogsPropsType) => {
-
-    const dialogsElements = props.dialogs.map(d => <DialogItem key={d.id}
+    const dialogsElements = props.dialogsPage.dialogs.map(d => <DialogItem key={d.id}
                                                                name={d.name}
                                                                id={d.id}/>)
-    const messagesElements = props.messages.map((m) => <Message key={m.id}
+    const messagesElements = props.dialogsPage.messages.map((m) => <Message key={m.id}
                                                                 message={m.message}
                                                                 id={m.id}/>)
 
@@ -43,7 +35,7 @@ export const Dialogs = (props: MyDialogsPropsType) => {
             <div className={classes.messages}>
                 {messagesElements}
             </div>
-            <textarea placeholder='Enter your message' value={props.newMessageText}
+            <textarea placeholder='Enter your message' value={props.dialogsPage.newMessageText}
                       onChange={onChangeTextareaHandler}/>
             <button style={buttonStyle} onClick={onClickButtonHandler}>add</button>
         </div>

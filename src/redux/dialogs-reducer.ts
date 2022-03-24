@@ -1,8 +1,17 @@
 import {v1} from "uuid";
-import {ActionsTypes, DialogsPageType} from "./store";
+import {ActionsTypes} from "./store";
 
 const ADD_MESSAGE = "ADD-MESSAGE"
 const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT"
+
+export type MessageType = {
+    id: string
+    message: string
+}
+export type DialogType = {
+    id: string
+    name: string
+}
 
 const initialState = {
     dialogs: [
@@ -12,37 +21,41 @@ const initialState = {
         {id: v1(), name: 'Anton'},
         {id: v1(), name: 'Viktoriya'},
         {id: v1(), name: 'Dmitry'}
-    ],
+    ] as Array<DialogType>,
     messages: [
         {id: v1(), message: 'Hi!'},
         {id: v1(), message: 'How are you!'},
         {id: v1(), message: 'Yo!'},
         {id: v1(), message: 'I`m fine!'}
-    ],
+    ] as Array<MessageType>,
     newMessageText: ''
 }
 
-const dialogsReducer = (state: DialogsPageType = initialState, action: ActionsTypes): DialogsPageType => {
+export type InitialStateType = typeof initialState
+
+const dialogsReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
     //функция добавить сообщение
     switch (action.type) {
-        case ADD_MESSAGE:
-            const newMessage = {id: v1(), message: action.newMessageText}
-            state.messages.unshift(newMessage)
-            state.newMessageText = ''
-            return state
+        case ADD_MESSAGE: {
+            let text = state.newMessageText
+            return state = {
+                ...state,
+                messages: [{id: v1(), message: text}, ...state.messages],
+                newMessageText: ''
+            }
+        }
         //функция обновляет запись в сообщении через стэйт
-        case UPDATE_NEW_MESSAGE_TEXT:
-            state.newMessageText = action.newTextMessage
-            return state
+        case UPDATE_NEW_MESSAGE_TEXT: {
+            return state = {...state, newMessageText: action.newTextMessage}
+        }
         default:
             return state
     }
 }
 
-export const addMessageAC = (newMessageText: string) => {
+export const addMessageAC = () => {
     return {
-        type: ADD_MESSAGE,
-        newMessageText: newMessageText
+        type: ADD_MESSAGE
     } as const
 }
 export const updateNewMessageTextAC = (newTextMessage: string) => {

@@ -4,13 +4,11 @@ import ReactDOM from "react-dom";
 import React from "react";
 import {BrowserRouter} from "react-router-dom";
 import {App} from "./App";
-import {Provider} from "./StoreContext";
-import {RootStateType} from "./redux/store";
-import store from "./redux/redux-store"
+import {Provider} from "react-redux";
+import {store} from "./redux/redux-store";
 
 
-export const rerenderEntireThree = (state: RootStateType) => {
-    ReactDOM.render(
+ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
                 <Provider store={store}>
@@ -20,12 +18,6 @@ export const rerenderEntireThree = (state: RootStateType) => {
         </React.StrictMode>,
         document.getElementById('root')
     );
-}
-rerenderEntireThree(store.getState());
 
-store.subscribe(() => {
-    let state = store.getState();
-    rerenderEntireThree(state)
-})
 
 reportWebVitals();

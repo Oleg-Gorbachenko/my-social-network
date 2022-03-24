@@ -9,11 +9,9 @@ import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
-type MyAppPropsType = {
-    // store: StoreType
-}
 
-export function App(props: MyAppPropsType) {
+
+export function App() {
     return (
         <div className="app-wrapper">
             <Header/>
