@@ -1,5 +1,6 @@
 import {addPostAC, updateNewPostTextAC} from "./profile-reducer";
 import {addMessageAC, updateNewMessageTextAC} from "./dialogs-reducer";
+import {followAC, setUsersAC, unfollowAC} from "./users-reducer";
 
 // типизация
 // type MessageType = {
@@ -41,6 +42,10 @@ export type ActionsTypes =
     | ReturnType<typeof updateNewPostTextAC>
     | ReturnType<typeof addMessageAC>
     | ReturnType<typeof updateNewMessageTextAC>
+    | ReturnType<typeof followAC>
+    | ReturnType<typeof unfollowAC>
+    | ReturnType<typeof setUsersAC>
+
 
 // STORE
 // const store: StoreType = {
