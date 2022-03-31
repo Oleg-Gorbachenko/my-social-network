@@ -3,34 +3,35 @@ import {UsersPropsType} from "./UsersContainer";
 import styles from "./Users.module.css";
 import axios from "axios";
 import userPhoto from '../../assets/images/user.jpg'
+import {UsersType} from "../../redux/users-reducer";
 
-
-export const Users = (props: UsersPropsType) => {
-    const getUsers = () =>{
-        if (props.users.length === 0) {
-            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-                props.setUsers(response.data.items)
-            })
-        }
+export class Users extends React.Component<UsersPropsType,UsersType> {
+    constructor(props:UsersPropsType) {
+        super(props);
+        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+            this.props.setUsers(response.data.items)
+        })
     }
-    return (
-        <div>
-            <button onClick={getUsers}>Get Users</button>
-            {props.users.map((u) => <div key={u.id}>
+
+    render() {
+        return (
+            <div>
+                {this.props.users.map((u) => <div key={u.id}>
                 <span>
                     <div>
-                        <img src={u.photos.small !== null ? u.photos.small : userPhoto} alt="ava"
-                             className={styles.userPhoto}/> //можно и без проверки на null
+                        <img src={u.photos.small !== null ? u.photos.small : userPhoto}
+                             alt="ava" //можно и без проверки на null
+                             className={styles.userPhoto}/>
                     </div>
                     <div>
                         {u.followed ? <button onClick={() => {
-                            props.unfollow(u.id)
+                            this.props.unfollow(u.id)
                         }}>Unfollow</button> : <button onClick={() => {
-                            props.follow(u.id)
+                            this.props.follow(u.id)
                         }}>Follow</button>}
                     </div>
                 </span>
-                    <span>
+                        <span>
                     <span>
                         <div>{u.name}</div>
                         <div>{u.status}</div>
@@ -39,8 +40,9 @@ export const Users = (props: UsersPropsType) => {
                         <div>{'u.location.city'}</div>
                     </span>
                     </span>
-                </div>
-            )}
-        </div>
-    );
-};
+                    </div>
+                )}
+            </div>
+        );
+    }
+}
