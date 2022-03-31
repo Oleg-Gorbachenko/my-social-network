@@ -6,11 +6,15 @@ const SET_USERS = "SET-USERS"
 
 export type UsersType = {
     id: string
-    photoUrl:string
+    photos: PhotosType
     followed: boolean
-    fullName: string
+    name: string
     status: string
     location: LocationType
+}
+type PhotosType = {
+    small: string | undefined
+    large: string | undefined
 }
 
 type LocationType = {
@@ -18,9 +22,7 @@ type LocationType = {
     country: string
 }
 const initialState = {
-    users: [
-
-    ] as Array<UsersType>
+    users: [] as Array<UsersType>
 }
 
 export type InitialStateType = typeof initialState
@@ -47,7 +49,7 @@ const usersReducer = (state: InitialStateType = initialState, action: ActionsTyp
         }
         case SET_USERS: {
             // return {...state,users: [...state.users,...action.payload.users]} //возвращает 8 пользователей
-            return {...state,users: action.payload.users} //возвращает 4 пользователя
+            return {...state, users: action.payload.users} //возвращает 4 пользователя
         }
         default:
             return state
