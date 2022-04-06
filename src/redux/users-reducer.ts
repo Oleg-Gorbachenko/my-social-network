@@ -5,6 +5,7 @@ const UNFOLLOW = "UNFOLLOW"
 const SET_USERS = "SET-USERS"
 const SET_CURRENT_PAGE = "SET-CURRENT-PAGE"
 const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT"
+const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING"
 
 export type UsersType = {
     id: string
@@ -29,6 +30,7 @@ const initialState = {
     pageSize: 5,
     totalUsersCount: 0,
     currentPage: 4,
+    isFetching: true,
 }
 
 export type InitialStateType = typeof initialState
@@ -62,6 +64,9 @@ const usersReducer = (state: InitialStateType = initialState, action: ActionsTyp
         case SET_TOTAL_USERS_COUNT: {
             return {...state, totalUsersCount: action.totalUsersCount}
         }
+        case TOGGLE_IS_FETCHING: {
+            return {...state, isFetching: action.isFetching}
+        }
         default:
             return state
     }
@@ -90,6 +95,11 @@ export const setCurrentPageAC = (currentPage: number) => {
         payload: {currentPage}
     } as const
 }
-export const setUsersTotalCountAC = (totalUsersCount: number) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount} as const)
+export const setUsersTotalCountAC = (totalUsersCount: number) => ({
+    type: SET_TOTAL_USERS_COUNT,
+    totalUsersCount
+} as const)
+
+export const toggleIsFetchingAC = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching} as const)
 
 export default usersReducer
