@@ -36,6 +36,14 @@ export type PostType = {
     message: string
     likesCount: number
 }
+
+export type InitialStateType = {
+    posts: Array<PostType>
+    newPostText: string
+    profile: ProfileType | null
+}
+
+
 const initialState = {
     posts: [
         {id: v1(), message: 'How are you!', likesCount: 15},
@@ -44,8 +52,6 @@ const initialState = {
     newPostText: '',
     profile: null
 }
-
-export type InitialStateType = typeof initialState
 
 const profileReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
     //функция добавить пост
@@ -68,7 +74,7 @@ const profileReducer = (state: InitialStateType = initialState, action: ActionsT
             }
         }
         case SET_USER_PROFILE: {
-            return action.profile === null ? {...state, profile: action.profile} : {...state}
+            return {...state, profile: action.profile}
         }
         default:
             return state
