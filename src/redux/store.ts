@@ -1,4 +1,4 @@
-import {addPostAC, updateNewPostTextAC} from "./profile-reducer";
+import {addPostAC, setUserProfile, updateNewPostTextAC} from "./profile-reducer";
 import {addMessageAC, updateNewMessageTextAC} from "./dialogs-reducer";
 import {
     follow,
@@ -55,6 +55,7 @@ export type ActionsTypes =
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleIsFetching>
+    | ReturnType<typeof setUserProfile>
 
 
 // STORE

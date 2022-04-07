@@ -3,6 +3,33 @@ import {ActionsTypes} from "./store";
 
 const ADD_POST = "ADD-POST"
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
+const SET_USER_PROFILE = "SET_USER_PROFILE"
+
+export type ProfileType = {
+    aboutMe: string
+    contacts: ProfileContactsType
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    userId: number
+    photos: ProfilePhotosType
+}
+
+export type ProfileContactsType = {
+    facebook: string
+    website: string
+    vk: string
+    twitter: string
+    instagram: string
+    youtube: string
+    github: string
+    mainLink: string
+}
+
+export type ProfilePhotosType = {
+    small: string
+    large: string
+}
 
 export type PostType = {
     id: string
@@ -14,7 +41,8 @@ const initialState = {
         {id: v1(), message: 'How are you!', likesCount: 15},
         {id: v1(), message: 'It\'s my first post', likesCount: 26}
     ] as Array<PostType>,
-    newPostText: ''
+    newPostText: '',
+    profile: null
 }
 
 export type InitialStateType = typeof initialState
@@ -39,6 +67,9 @@ const profileReducer = (state: InitialStateType = initialState, action: ActionsT
                 newPostText: action.newText
             }
         }
+        case SET_USER_PROFILE: {
+            return action.profile === null ? {...state, profile: action.profile} : {...state}
+        }
         default:
             return state
     }
@@ -54,5 +85,7 @@ export const updateNewPostTextAC = (text: string) => {
         newText: text
     } as const
 }
+
+export const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile} as const)
 
 export default profileReducer
