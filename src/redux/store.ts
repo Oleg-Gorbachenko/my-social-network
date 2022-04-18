@@ -8,6 +8,7 @@ import {
     setTotalUsersCount,
     unfollow
 } from "./users-reducer";
+import {setAuthUserData} from "./auth-reducer";
 
 // типизация
 // type MessageType = {
@@ -56,6 +57,7 @@ export type ActionsTypes =
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setAuthUserData>
 
 
 // STORE
