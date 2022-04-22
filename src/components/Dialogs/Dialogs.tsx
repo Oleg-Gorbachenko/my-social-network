@@ -3,15 +3,16 @@ import classes from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
 import {DialogsPropsType} from "./DialogsContainer";
+import {Navigate} from "react-router-dom";
 
 export const Dialogs = (props: DialogsPropsType) => {
 
     const dialogsElements = props.dialogsPage.dialogs.map(d => <DialogItem key={d.id}
-                                                               name={d.name}
-                                                               id={d.id}/>)
+                                                                           name={d.name}
+                                                                           id={d.id}/>)
     const messagesElements = props.dialogsPage.messages.map((m) => <Message key={m.id}
-                                                                message={m.message}
-                                                                id={m.id}/>)
+                                                                            message={m.message}
+                                                                            id={m.id}/>)
 
     const onChangeTextareaHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
         const text = event.currentTarget.value
@@ -26,6 +27,7 @@ export const Dialogs = (props: DialogsPropsType) => {
         width: '50px',
         height: '20px'
     }
+    if (!props.isAuth) return <Navigate to={"/login"}/>
 
     return (
         <div className={classes.dialogs}>
