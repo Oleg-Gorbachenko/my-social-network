@@ -1,7 +1,5 @@
-import {ActionsTypes} from "./store";
+import {ActionsTypes, ThunkDispatchType, ThunkType} from "./store";
 import {usersAPI} from "../api/api";
-import {AppStateType} from "./redux-store";
-import {ThunkAction, ThunkDispatch} from "redux-thunk";
 
 const FOLLOW = "FOLLOW"
 const UNFOLLOW = "UNFOLLOW"
@@ -125,8 +123,6 @@ export const toggleFollowingProgress = (isFetching: boolean, userId: string) => 
     isFetching, userId
 } as const)
 
-type ThunkDispatchType = ThunkDispatch<AppStateType, unknown, ActionsTypes>;
-type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes>;
 
 export const getUsersThunkCreator = (currentPage: number, pageSize: number): ThunkType => {
     return (dispatch: ThunkDispatchType) => {
@@ -157,7 +153,6 @@ export const follow = (userId: string): ThunkType => {
         dispatch(toggleFollowingProgress(true, userId))
         usersAPI.followed(userId)
             .then(data => {
-                debugger
                 if (data.resultCode === 0) {
                     dispatch(followSuccess(userId))
                 }

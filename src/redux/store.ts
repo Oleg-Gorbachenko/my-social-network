@@ -10,6 +10,8 @@ import {
     unfollowSuccess,
 } from "./users-reducer";
 import {setAuthUserData} from "./auth-reducer";
+import {ThunkAction, ThunkDispatch} from "redux-thunk";
+import {AppStateType} from "./redux-store";
 
 export type ActionsTypes =
     ReturnType<typeof addPostAC>
@@ -26,3 +28,7 @@ export type ActionsTypes =
     | ReturnType<typeof setAuthUserData>
     | ReturnType<typeof toggleFollowingProgress>
 
+
+
+export type ThunkDispatchType = ThunkDispatch<AppStateType, unknown, ActionsTypes>;
+export type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes>;

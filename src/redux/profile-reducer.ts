@@ -1,5 +1,6 @@
 import {v1} from "uuid";
-import {ActionsTypes} from "./store";
+import {ActionsTypes, ThunkDispatchType, ThunkType} from "./store";
+import {usersAPI} from "../api/api";
 
 const ADD_POST = "ADD-POST"
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
@@ -93,5 +94,14 @@ export const updateNewPostTextAC = (text: string) => {
 }
 
 export const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile} as const)
+
+export const getUsersProfile = (userId: string): ThunkType => {
+    return (dispatch: ThunkDispatchType) => {
+        usersAPI.getProfile(userId)
+            .then(response => {
+                dispatch(setUserProfile(response.data))
+            })
+    }
+}
 
 export default profileReducer
