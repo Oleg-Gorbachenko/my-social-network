@@ -3,7 +3,6 @@ import classes from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
 import {DialogsPropsType} from "./DialogsContainer";
-import {Navigate} from "react-router-dom";
 
 export const Dialogs = (props: DialogsPropsType) => {
 
@@ -27,7 +26,6 @@ export const Dialogs = (props: DialogsPropsType) => {
         width: '50px',
         height: '20px'
     }
-    if (!props.isAuth) return <Navigate to={"/login"}/>
 
     return (
         <div className={classes.dialogs}>
