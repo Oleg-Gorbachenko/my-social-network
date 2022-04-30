@@ -1,10 +1,11 @@
-import React, {JSXElementConstructor} from "react";
+import React, {ComponentType, JSXElementConstructor} from "react";
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import {getUsersProfile, ProfileType} from "../../redux/profile-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
+import {compose} from "redux";
 
 type MapStatePropsType = {
     profile: ProfileType | null
@@ -51,6 +52,8 @@ export const withRouter = (Component: JSXElementConstructor<any>): JSXElementCon
     return ComponentWithRouterProp;
 }
 
-let AuthRedirectComponent = WithAuthRedirect(ProfileContainer)
-
-export default connect(mapStateToProps, {getUsersProfile})(withRouter(AuthRedirectComponent))
+export default compose<ComponentType>(
+    connect(mapStateToProps, {getUsersProfile}),
+    withRouter,
+    WithAuthRedirect
+)(ProfileContainer)
