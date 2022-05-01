@@ -6,6 +6,8 @@ import {ProfileStatus} from "./ProfileStatus";
 
 type ProfileInfoProps = {
     profile: ProfileType | null
+    status: string
+    updateStatus: (status: string) => void
 }
 
 export const ProfileInfo = (props: ProfileInfoProps) => {
@@ -21,20 +23,20 @@ export const ProfileInfo = (props: ProfileInfoProps) => {
             <div className={classes.descriptionBlock}>
                 <img src={props.profile.photos.large} alt="photo"/>
                 <h2>{props.profile.fullName}</h2>
-                <ProfileStatus status={'Hello my friends!'}/>
-                <div>About Me: {props.profile.aboutMe}</div>
-                <div>Looking for a job: {props.profile.lookingForAJob}</div>
-                <div>Looking for a job description: {props.profile.lookingForAJobDescription}</div>
-                <div>My contacts:
-                    <li>{props.profile.contacts.vk}</li>
-                    <li>{props.profile.contacts.github}</li>
-                    <li>{props.profile.contacts.facebook}</li>
-                    <li>{props.profile.contacts.twitter}</li>
-                    <li>{props.profile.contacts.website}</li>
-                    <li>{props.profile.contacts.instagram}</li>
-                    <li>{props.profile.contacts.mainLink}</li>
-                    <li>{props.profile.contacts.youtube}</li>
-                </div>
+                <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+                {/*<div>About Me: {props.profile.aboutMe}</div>*/}
+                {/*<div>Looking for a job: {props.profile.lookingForAJob}</div>*/}
+                {/*<div>Looking for a job description: {props.profile.lookingForAJobDescription}</div>*/}
+                {/*<div>My contacts:*/}
+                {/*    <li>{props.profile.contacts.vk}</li>*/}
+                {/*    <li>{props.profile.contacts.github}</li>*/}
+                {/*    <li>{props.profile.contacts.facebook}</li>*/}
+                {/*    <li>{props.profile.contacts.twitter}</li>*/}
+                {/*    <li>{props.profile.contacts.website}</li>*/}
+                {/*    <li>{props.profile.contacts.instagram}</li>*/}
+                {/*    <li>{props.profile.contacts.mainLink}</li>*/}
+                {/*    <li>{props.profile.contacts.youtube}</li>*/}
+                {/*</div>*/}
             </div>
         </div>
     )
