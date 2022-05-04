@@ -125,8 +125,8 @@ export const updateStatus = (status: string): ThunkType => {
     return (dispatch: ThunkDispatchType) => {
         profileAPI.updateStatus(status)
             .then(response => {
-                if (response.data.resultCode ===0) {
-                dispatch(setStatus(status))
+                if (response.data.resultCode === 0) {
+                    dispatch(setStatus(status))
                 }
             })
     }

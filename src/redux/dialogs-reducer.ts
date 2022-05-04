@@ -2,7 +2,7 @@ import {v1} from "uuid";
 import {ActionsTypes} from "./store";
 
 const ADD_MESSAGE = "ADD-MESSAGE"
-const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT"
+
 
 export type MessageType = {
     id: string
@@ -28,7 +28,6 @@ const initialState = {
         {id: v1(), message: 'Yo!'},
         {id: v1(), message: 'I`m fine!'}
     ] as Array<MessageType>,
-    newMessageText: ''
 }
 
 export type InitialStateType = typeof initialState
@@ -37,32 +36,17 @@ const dialogsReducer = (state: InitialStateType = initialState, action: ActionsT
     //функция добавить сообщение
     switch (action.type) {
         case ADD_MESSAGE: {
-            let text = state.newMessageText
             return state = {
                 ...state,
-                messages: [{id: v1(), message: text}, ...state.messages],
-                newMessageText: ''
+                messages: [...state.messages,{id: v1(), message: action.newMessageText}]
             }
-        }
-        //функция обновляет запись в сообщении через стэйт
-        case UPDATE_NEW_MESSAGE_TEXT: {
-            return state = {...state, newMessageText: action.newTextMessage}
         }
         default:
             return state
     }
 }
 
-export const addMessageAC = () => {
-    return {
-        type: ADD_MESSAGE
-    } as const
-}
-export const updateNewMessageTextAC = (newTextMessage: string) => {
-    return {
-        type: UPDATE_NEW_MESSAGE_TEXT,
-        newTextMessage: newTextMessage
-    } as const
-}
+export const addMessageAC = (newMessageText:string) => ({type: ADD_MESSAGE,newMessageText} as const)
+
 
 export default dialogsReducer
