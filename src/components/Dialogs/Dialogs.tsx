@@ -14,8 +14,7 @@ export const Dialogs = (props: DialogsPropsType) => {
                                                                             message={m.message}
                                                                             id={m.id}/>)
 
-    const addNewMessage = (values: any) => {
-        console.log(values.newMessageText)
+    const addNewMessage = (values: AddMessageFormType) => {
         props.onSendMessage(values.newMessageText)
     }
 
@@ -32,10 +31,9 @@ export const Dialogs = (props: DialogsPropsType) => {
         </div>
     )
 }
+
 type AddMessageFormType = {
-    login: string
-    password: string
-    rememberMe: boolean
+    newMessageText: string
 }
 
 export const AddMessageForm: React.FC<InjectedFormProps<AddMessageFormType>> = (props) => {

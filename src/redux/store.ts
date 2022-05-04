@@ -1,4 +1,4 @@
-import {addPostAC, setStatus, setUserProfile, updateNewPostTextAC} from "./profile-reducer";
+import {addPostAC, setStatus, setUserProfile} from "./profile-reducer";
 import {addMessageAC} from "./dialogs-reducer";
 import {
     followSuccess,
@@ -15,7 +15,6 @@ import {AppStateType} from "./redux-store";
 
 export type ActionsTypes =
     ReturnType<typeof addPostAC>
-    | ReturnType<typeof updateNewPostTextAC>
     | ReturnType<typeof addMessageAC>
     | ReturnType<typeof followSuccess>
     | ReturnType<typeof unfollowSuccess>
