@@ -2,9 +2,13 @@ import React from 'react';
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Input} from "../common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
+import {connect} from "react-redux";
+import {login, logout} from "../../redux/auth-reducer";
+import {AppStateType} from "../../redux/redux-store";
+import {Navigate} from "react-router-dom";
 
 type FormDataType = {
-    login: string
+    email: string
     password: string
     rememberMe: boolean
 }
@@ -13,8 +17,8 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field placeholder={'Login'}
-                       name={'login'}
+                <Field placeholder={'Email'}
+                       name={'email'}
                        component={Input}
                        validate={[required]}
                 />
@@ -24,6 +28,7 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                        name={'password'}
                        component={Input}
                        validate={[required]}
+                       type={'password'}
                 />
             </div>
             <div>
@@ -41,9 +46,27 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
 
 const LoginReduxForm = reduxForm<FormDataType>({form: 'login'})(LoginForm)
 
-export const Login = () => {
+type mapDispatchPropsType = {
+    login: (email: string, password: string, rememberMe: boolean) => void
+    logout: () => void
+}
+type mapStateToPropsType = {
+    isAuth: boolean
+}
+const mapStateToProps = (state: AppStateType): mapStateToPropsType => ({
+    isAuth: state.auth.isAuth,
+})
+
+type LoginPropsType = mapStateToPropsType & mapDispatchPropsType
+
+export const Login = (props: LoginPropsType) => {
+
     const onSubmit = (formData: FormDataType) => {
-        console.log(formData)
+        props.login(formData.email, formData.password, formData.rememberMe)
+    }
+
+    if (props.isAuth) {
+        return <Navigate to={"/profile/22956"}/>
     }
     return (
         <div>
@@ -52,4 +75,6 @@ export const Login = () => {
         </div>
     );
 };
+
+export default connect(mapStateToProps, {login, logout})(Login);
 
