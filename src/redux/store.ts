@@ -12,6 +12,7 @@ import {
 import {setAuthUserData} from "./auth-reducer";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {AppStateType} from "./redux-store";
+import {FormAction} from "redux-form";
 
 export type ActionsTypes =
     ReturnType<typeof addPostAC>
@@ -29,5 +30,5 @@ export type ActionsTypes =
 
 
 
-export type ThunkDispatchType = ThunkDispatch<AppStateType, unknown, ActionsTypes>;
+export type ThunkDispatchType = ThunkDispatch<AppStateType, unknown, ActionsTypes | FormAction>;
 export type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes>;

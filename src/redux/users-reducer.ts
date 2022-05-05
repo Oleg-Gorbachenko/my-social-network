@@ -27,11 +27,6 @@ type LocationType = {
     country: string
 }
 
-// export type followingType = {
-//     isFetching: boolean
-//     userId: number
-// }
-
 const initialState = {
     users: [] as Array<UsersType>,
     pageSize: 5,
@@ -44,7 +39,6 @@ const initialState = {
 export type InitialStateType = typeof initialState
 
 const usersReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
-    //функция подписаться
     switch (action.type) {
         case FOLLOW : {
             return {
@@ -122,7 +116,6 @@ export const toggleFollowingProgress = (isFetching: boolean, userId: string) => 
     type: TOGGLE_IS_FOLLOWING_PROGRESS,
     isFetching, userId
 } as const)
-
 
 export const getUsersThunkCreator = (currentPage: number, pageSize: number): ThunkType => {
     return (dispatch: ThunkDispatchType) => {
