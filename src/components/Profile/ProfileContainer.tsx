@@ -25,9 +25,16 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
 export type ProfilePropsType = MapStatePropsType & MapDispatchPropsType
 
 class ProfileContainer extends React.Component<ProfilePropsType> {
+
     componentDidMount() {
         // @ts-ignore
         let userId = this.props.router.params.userId;
+
+        if (!userId || userId === '22956') {
+            //@ts-ignore
+            this.props.router.navigate("/login")
+        }
+
         this.props.getUsersProfile(userId)
         this.props.getStatus(userId)
     }
