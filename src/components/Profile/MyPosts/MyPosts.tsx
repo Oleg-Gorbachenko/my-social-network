@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo} from "react";
 import classes from './MyPosts.module.css'
 import {Post} from "./Post/Post";
 import {MyPostsPropsType} from "./MyPostsContainer";
@@ -7,7 +7,7 @@ import {maxLengthCreator, minLengthCreator, required} from "../../../utils/valid
 import {Textarea} from "../../common/FormsControls/FormsControls";
 
 
-export const MyPosts = (props: MyPostsPropsType) => {
+export const MyPosts = memo((props: MyPostsPropsType) => {
 
     const postsElements = props.profilePage.posts.map(p => <Post key={p.id}
                                                                  message={p.message}
@@ -29,7 +29,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
             </div>
         </div>
     )
-}
+})
 
 type AddPostFormType = {
     newPostText: string
@@ -45,7 +45,7 @@ export const AddPostForm: React.FC<InjectedFormProps<AddPostFormType>> = (props)
                     component={Textarea}
                     name='newPostText'
                     placeholder='Enter your message'
-                    validate={[required, maxLength10,minLength2]}/>
+                    validate={[required, maxLength10, minLength2]}/>
             </div>
             <div>
                 <button>Add post</button>
