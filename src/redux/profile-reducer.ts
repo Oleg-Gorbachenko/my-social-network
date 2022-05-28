@@ -3,6 +3,7 @@ import {ActionsTypes, ThunkDispatchType, ThunkType} from "./store";
 import {profileAPI, usersAPI} from "../api/api";
 
 const ADD_POST = "ADD-POST"
+const DELETE_POST = "DELETE-POST"
 const SET_USER_PROFILE = "SET_USER_PROFILE"
 const SET_STATUS = "SET_STATUS"
 
@@ -64,6 +65,9 @@ const profileReducer = (state: InitialStateType = initialState, action: ActionsT
                     ...state.posts]
             }
         }
+        case DELETE_POST: {
+            return {...state, posts: state.posts.filter(p => p.id !== action.id)}
+        }
         case SET_USER_PROFILE: {
             return {...state, profile: action.profile}
         }
@@ -75,6 +79,8 @@ const profileReducer = (state: InitialStateType = initialState, action: ActionsT
     }
 }
 export const addPostAC = (newPostText: string) => ({type: ADD_POST, newPostText} as const)
+
+export const deletePost = (id: string) => ({type: DELETE_POST, id} as const)
 
 export const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile} as const)
 
