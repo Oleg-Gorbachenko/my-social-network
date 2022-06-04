@@ -1,7 +1,7 @@
 import {ActionsTypes, ThunkDispatchType} from "./store";
 import {getAuthUserData} from "./auth-reducer";
 
-const INITIALIZED_SUCCESS = "INITIALIZED_SUCCESS"
+const INITIALIZED_SUCCESS = "app/INITIALIZED_SUCCESS"
 
 export type initialStateType = {
     initialized: boolean
@@ -23,11 +23,11 @@ export const appReducer = (state: initialStateType = initialState, action: Actio
     }
 }
 
+//action creator
 export const initializedSuccess = () => ({type: INITIALIZED_SUCCESS} as const)
 
-export const initializeApp = () => (dispatch: ThunkDispatchType) => {
-    dispatch(getAuthUserData())
-        .then(() => {
-            dispatch(initializedSuccess())
-        })
+//thunk
+export const initializeApp = () => async (dispatch: ThunkDispatchType) => {
+    await dispatch(getAuthUserData())
+    dispatch(initializedSuccess())
 }

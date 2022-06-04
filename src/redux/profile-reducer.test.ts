@@ -1,4 +1,4 @@
-import profileReducer, {addPostAC, deletePost, PostType} from "./profile-reducer";
+import {addPostAC, deletePost, PostType, profileReducer} from "./profile-reducer";
 
 
 const state = {
