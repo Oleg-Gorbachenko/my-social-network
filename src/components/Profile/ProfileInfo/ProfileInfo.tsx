@@ -10,32 +10,28 @@ type ProfileInfoProps = {
     updateStatus: (status: string) => void
 }
 
-export const ProfileInfo = (props: ProfileInfoProps) => {
-    if (!props.profile) {
+export const ProfileInfo = ({profile, status, updateStatus}: ProfileInfoProps) => {
+    if (!profile) {
         return <Preloader/>
     }
     return (
         <div>
-            {/*<div>*/}
-            {/*    <img src="https://klike.net/uploads/posts/2019-05/1556708032_1.jpg"*/}
-            {/*         alt="content-img"/>*/}
-            {/*</div>*/}
             <div className={classes.descriptionBlock}>
-                <img src={props.profile.photos.large} alt="photo"/>
-                <h2>{props.profile.fullName}</h2>
-                <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
-                <div>About Me: {props.profile.aboutMe}</div>
-                <div>Looking for a job: {props.profile.lookingForAJob}</div>
-                <div>Looking for a job description: {props.profile.lookingForAJobDescription}</div>
+                <img src={profile.photos.large} alt="photo"/>
+                <h2>{profile.fullName}</h2>
+                <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
+                <div>About Me: {profile.aboutMe}</div>
+                <div>Looking for a job: {profile.lookingForAJob}</div>
+                <div>Looking for a job description: {profile.lookingForAJobDescription}</div>
                 <div>My contacts:
-                    <li>{props.profile.contacts.vk}</li>
-                    <li>{props.profile.contacts.github}</li>
-                    <li>{props.profile.contacts.facebook}</li>
-                    <li>{props.profile.contacts.twitter}</li>
-                    <li>{props.profile.contacts.website}</li>
-                    <li>{props.profile.contacts.instagram}</li>
-                    <li>{props.profile.contacts.mainLink}</li>
-                    <li>{props.profile.contacts.youtube}</li>
+                    <li>{profile.contacts.vk}</li>
+                    <li>{profile.contacts.github}</li>
+                    <li>{profile.contacts.facebook}</li>
+                    <li>{profile.contacts.twitter}</li>
+                    <li>{profile.contacts.website}</li>
+                    <li>{profile.contacts.instagram}</li>
+                    <li>{profile.contacts.mainLink}</li>
+                    <li>{profile.contacts.youtube}</li>
                 </div>
             </div>
         </div>

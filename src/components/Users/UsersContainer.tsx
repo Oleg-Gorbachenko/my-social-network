@@ -34,22 +34,11 @@ type MapDispatchPropsType = {
     unfollow: (userId: string) => void
     follow: (userId: string) => void
     toggleFollowingProgress: (isFetching: boolean, userId: string) => void
-    getUsersThunkCreator: (currentPage: number, pageSize: number) => void
+    requestUsers: (currentPage: number, pageSize: number) => void
     onPageChangeThunkCreator: (pageNumber: number, pageSize: number) => void
 }
 
 export type UsersPropsType = MapStatePropsType & MapDispatchPropsType
-
-// const mapStateToProps = (state: AppStateType): MapStatePropsType => {
-//     return {
-//         users: state.usersPage.users,
-//         pageSize: state.usersPage.pageSize,
-//         totalUsersCount: state.usersPage.totalUsersCount,
-//         currentPage: state.usersPage.currentPage,
-//         isFetching: state.usersPage.isFetching,
-//         followingInProgress: state.usersPage.followingInProgress,
-//     }
-// }
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
@@ -64,11 +53,13 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 
 export class UsersContainer extends React.Component<UsersPropsType, UsersType> {
     componentDidMount() {
-        this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)
+        const {currentPage, pageSize} = this.props
+        this.props.requestUsers(currentPage, pageSize)
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.onPageChangeThunkCreator(pageNumber, this.props.pageSize)
+        const {pageSize} = this.props
+        this.props.onPageChangeThunkCreator(pageNumber, pageSize)
     }
 
     render() {
@@ -93,7 +84,7 @@ export class UsersContainer extends React.Component<UsersPropsType, UsersType> {
 export default compose<ComponentType>(
     connect(mapStateToProps, {
         toggleFollowingProgress,
-        getUsersThunkCreator: requestUsers,
+        requestUsers,
         onPageChangeThunkCreator,
         unfollow,
         follow,
