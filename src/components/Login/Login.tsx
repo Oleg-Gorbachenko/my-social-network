@@ -15,7 +15,7 @@ type FormDataType = {
     rememberMe: boolean
 }
 
-export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit,error}) => {
+export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
     return (
         <form onSubmit={handleSubmit}>
             <div>
@@ -77,6 +77,11 @@ export const Login = (props: LoginPropsType) => {
         <div>
             <h1>LOGIN</h1>
             <LoginReduxForm onSubmit={onSubmit}/>
+            <div>
+                <h3>Данные для тестового аккаунта:</h3>
+                <div>Email: free@samuraijs.com</div>
+                <div>Password: free</div>
+            </div>
         </div>
     );
 };
