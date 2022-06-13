@@ -1,7 +1,7 @@
 import React, {ComponentType, JSXElementConstructor} from "react";
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
-import {getStatus, getUsersProfile, ProfileType, updateStatus} from "../../redux/profile-reducer";
+import {getStatus, getUsersProfile, ProfileType, savePhoto, updateStatus} from "../../redux/profile-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {compose} from "redux";
@@ -9,43 +9,65 @@ import {compose} from "redux";
 type MapStatePropsType = {
     profile: ProfileType | null
     status: string
+    userId: number | null
+    isAuth: boolean
 }
 
 type MapDispatchPropsType = {
     getUsersProfile: (userId: string) => void
     getStatus: (userId: string) => void
     updateStatus: (status: string) => void
+    savePhoto: (photo: File) => void
 }
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
     profile: state.profilePage.profile,
     status: state.profilePage.status,
+    userId: state.auth.userId,
+    isAuth: state.auth.isAuth,
 })
 
 export type ProfilePropsType = MapStatePropsType & MapDispatchPropsType
 
 class ProfileContainer extends React.Component<ProfilePropsType> {
 
-    componentDidMount() {
+    refreshProfile() {
         // @ts-ignore
         let userId = this.props.router.params.userId;
-
         if (!userId || userId === '22956') {
+            this.props.getUsersProfile(userId)
             //@ts-ignore
             this.props.router.navigate("/login")
         }
-
         this.props.getUsersProfile(userId)
         this.props.getStatus(userId)
     }
 
+    componentDidMount() {
+        this.refreshProfile()
+    }
+
+    componentDidUpdate(prevProps: Readonly<ProfilePropsType>, prevState: Readonly<{}>, snapshot?: any) {
+        //@ts-ignore
+        if (this.props.router.params.userId != prevProps.router.params.userId) {
+            this.refreshProfile()
+        }
+    }
+
+
     render() {
+        let isOwner;
+        //@ts-ignore
+        isOwner = this.props.isAuth && this.props.userId == this.props.router.params.userId;
         return (
             <Profile
                 {...this.props}
+                //@ts-ignore
+                isOwner={isOwner}
                 profile={this.props.profile}
                 status={this.props.status}
                 updateStatus={this.props.updateStatus}
+                savePhoto={this.props.savePhoto}
             />
         )
     }
@@ -69,6 +91,6 @@ export const withRouter = (Component: JSXElementConstructor<any>): JSXElementCon
 }
 
 export default compose<ComponentType>(
-    connect(mapStateToProps, {getUsersProfile, getStatus, updateStatus}),
+    connect(mapStateToProps, {getUsersProfile, getStatus, updateStatus, savePhoto}),
     withRouter
 )(ProfileContainer)

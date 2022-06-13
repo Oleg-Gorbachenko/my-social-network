@@ -4,3 +4,8 @@
 .item {
     color: blue;
 }
+
+.mainPhoto {
+    max-width: 200px;
+    border-radius: 50%;
+}
