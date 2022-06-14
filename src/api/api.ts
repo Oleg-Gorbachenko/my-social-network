@@ -1,4 +1,5 @@
 import axios from "axios";
+import {FormDataType} from "../components/Login/Login";
 
 const instance = axios.create({
     withCredentials: true,
@@ -48,7 +49,10 @@ export const profileAPI = {
         return instance.put(`profile/photo`, formData, {
             headers: {'Content-Type': 'multipart / form - data'}
         })
-    }
+    },
+    saveProfile(formData: FormDataType) {
+        return instance.put(`profile`, formData)
+    },
 }
 
 export const authAPI = {

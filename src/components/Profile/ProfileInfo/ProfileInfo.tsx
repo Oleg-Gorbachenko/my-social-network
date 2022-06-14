@@ -1,19 +1,23 @@
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, useState} from "react";
 import s from './ProfileInfo.module.css'
 import {Preloader} from "../../common/Preloader/Preloader";
 import {ProfileType} from "../../../redux/profile-reducer";
 import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
 import userPhoto from "../../../assets/images/user.jpg";
+import {ProfileDataFormReduxForm} from "./ProfileDataForm";
+import {FormDataType} from "../../Login/Login";
 
 type ProfileInfoProps = {
-    profile: ProfileType | null
+    profile: any | null
     status: string
     updateStatus: (status: string) => void
     isOwner: boolean
     savePhoto: (photo: File) => void
+    saveProfile: (formData: FormDataType) => any
 }
 
-export const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto}: ProfileInfoProps) => {
+export const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile}: ProfileInfoProps) => {
+    const [editMode, setEditMode] = useState(false)
     if (!profile) {
         return <Preloader/>
     }
@@ -22,29 +26,57 @@ export const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto}:
             savePhoto(e.target.files[0])
         }
     }
+    const onSubmit = (formData: FormDataType) => {
+        saveProfile(formData)
+            .then(() => {
+                setEditMode(false)
+            })
+
+    }
+    // @ts-ignore
     return (
         <div>
             <div className={s.descriptionBlock}>
                 <img src={profile.photos.large || userPhoto} className={s.mainPhoto} alt="photo"/>
                 {isOwner && <input type={'file'} onChange={onMainPhotoSelected}/>}
-                <h2>{profile.fullName}</h2>
                 <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
-                <div>About Me: {profile.aboutMe}</div>
-                <div>Looking for a job: {profile.lookingForAJob}</div>
-                <div>Looking for a job description: {profile.lookingForAJobDescription}</div>
-
-                {profile.contacts && <ul>My contacts:
-                    <li>{profile.contacts.vk}</li>
-                    <li>{profile.contacts.github}</li>
-                    <li>{profile.contacts.facebook}</li>
-                    <li>{profile.contacts.twitter}</li>
-                    <li>{profile.contacts.website}</li>
-                    <li>{profile.contacts.instagram}</li>
-                    <li>{profile.contacts.mainLink}</li>
-                    <li>{profile.contacts.youtube}</li>
-                </ul>}
-
+                {editMode ? <ProfileDataFormReduxForm onSubmit={onSubmit} initialValues={profile}/> :
+                    <ProfileData profile={profile} isOwner={isOwner} goToEditMode={() => setEditMode(true)}/>}
             </div>
         </div>
     )
 }
+type ContactPropsType = {
+    contactTitle: string
+    contactValue: string
+}
+export const Contact = (props: ContactPropsType) => {
+    return (
+        <div className={s.contact}><b>{props.contactTitle}</b>: {props.contactValue}</div>
+    )
+}
+
+type ProfileDataType = {
+    profile: ProfileType
+    isOwner: boolean
+    goToEditMode: () => void
+}
+export const ProfileData = ({profile, isOwner, goToEditMode}: ProfileDataType) => {
+    return (
+        <>
+            {isOwner && <button onClick={goToEditMode}>edit</button>}
+            <h2>{profile.fullName}</h2>
+            <div><b>About Me: </b> {profile.aboutMe}</div>
+            <div><b>Looking for a job: </b> {profile.lookingForAJob ? 'yes' : 'no'}</div>
+            {profile.lookingForAJob &&
+                <div><b>My professional skills: </b> {profile.lookingForAJobDescription}</div>}
+            <div>
+                <b>Contacts</b>: {Object.keys(profile.contacts).map(key => {
+                return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]}/>
+            })}
+            </div>
+        </>
+    )
+}
+
+

@@ -1,6 +1,7 @@
-.descriptionBlock{
+.descriptionBlock {
     padding: 10px;
 }
+
 .item {
     color: blue;
 }
@@ -8,4 +9,8 @@
 .mainPhoto {
     max-width: 200px;
     border-radius: 50%;
+}
+
+.contact {
+    padding-left: 10px;
 }

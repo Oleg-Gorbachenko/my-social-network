@@ -1,10 +1,18 @@
 import React, {ComponentType, JSXElementConstructor} from "react";
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
-import {getStatus, getUsersProfile, ProfileType, savePhoto, updateStatus} from "../../redux/profile-reducer";
+import {
+    getStatus,
+    getUsersProfile,
+    ProfileType,
+    savePhoto,
+    saveProfile,
+    updateStatus
+} from "../../redux/profile-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {compose} from "redux";
+import {FormDataType} from "../Login/Login";
 
 type MapStatePropsType = {
     profile: ProfileType | null
@@ -18,6 +26,7 @@ type MapDispatchPropsType = {
     getStatus: (userId: string) => void
     updateStatus: (status: string) => void
     savePhoto: (photo: File) => void
+    saveProfile: (formData: FormDataType) => void
 }
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
@@ -68,6 +77,7 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
                 status={this.props.status}
                 updateStatus={this.props.updateStatus}
                 savePhoto={this.props.savePhoto}
+                saveProfile={this.props.saveProfile}
             />
         )
     }
@@ -91,6 +101,6 @@ export const withRouter = (Component: JSXElementConstructor<any>): JSXElementCon
 }
 
 export default compose<ComponentType>(
-    connect(mapStateToProps, {getUsersProfile, getStatus, updateStatus, savePhoto}),
+    connect(mapStateToProps, {getUsersProfile, getStatus, updateStatus, savePhoto,saveProfile}),
     withRouter
 )(ProfileContainer)

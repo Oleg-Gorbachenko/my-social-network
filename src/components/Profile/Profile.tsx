@@ -2,6 +2,7 @@ import React from "react";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 import {ProfileType} from "../../redux/profile-reducer";
+import {FormDataType} from "../Login/Login";
 
 type ProfilePropsType = {
     profile: ProfileType | null
@@ -9,6 +10,7 @@ type ProfilePropsType = {
     updateStatus: (status: string) => void
     isOwner: boolean
     savePhoto: (photo: File) => void
+    saveProfile: (formData: FormDataType) => void
 }
 
 export const Profile = (props: ProfilePropsType) => {
@@ -18,7 +20,8 @@ export const Profile = (props: ProfilePropsType) => {
                          status={props.status}
                          updateStatus={props.updateStatus}
                          isOwner={props.isOwner}
-                         savePhoto={props.savePhoto}/>
+                         savePhoto={props.savePhoto}
+                         saveProfile={props.saveProfile}/>
             <MyPostsContainer/>
         </div>
     )
