@@ -18,49 +18,50 @@ const UsersContainer = React.lazy(() => import("./components/Users/UsersContaine
 
 class App extends React.Component<AppPropsType, initialStateType> {
 
-    componentDidMount() {
-        this.props.initializeApp();
+  componentDidMount() {
+    this.props.initializeApp();
+  }
+
+  render() {
+
+    if (!this.props.initialized) {
+      return <Preloader/>
     }
 
-    render() {
-
-        if (!this.props.initialized) {
-            return <Preloader/>
-        }
-
-        return (
-            <div className="app-wrapper">
-                <HeaderContainer/>
-                <Navbar/>
-                <div className='app-wrapper-content'>
-                    <React.Suspense fallback={<Preloader/>}>
-                        <Routes>
-                            <Route path='/dialogs/*' element={<DialogsContainer/>}/>
-                            <Route path='/profile/:userId' element={<ProfileContainer/>}/>
-                            <Route path='/profile' element={<ProfileContainer/>}/>
-                            <Route path='/news/*' element={<News/>}/>
-                            <Route path='/music/*' element={<Music/>}/>
-                            <Route path='/users/*' element={<UsersContainer/>}/>
-                            <Route path='/settings/*' element={<Settings/>}/>
-                            <Route path='/login/*' element={<Login/>}/>
-                        </Routes>
-                    </React.Suspense>
-                </div>
-            </div>
-        );
-    }
+    return (
+      <div className="app-wrapper">
+        <HeaderContainer/>
+        <Navbar/>
+        <div className='app-wrapper-content'>
+          <React.Suspense fallback={<Preloader/>}>
+            <Routes>
+              <Route path='/dialogs/*' element={<DialogsContainer/>}/>
+              <Route path='/profile/:userId' element={<ProfileContainer/>}/>
+              <Route path='/profile' element={<ProfileContainer/>}/>
+              <Route path='/news/*' element={<News/>}/>
+              <Route path='/music/*' element={<Music/>}/>
+              <Route path='/users/*' element={<UsersContainer/>}/>
+              <Route path='/settings/*' element={<Settings/>}/>
+              <Route path='/login/*' element={<Login/>}/>
+              <Route path='*' element={<div>404 NOT FOUND</div>}/>
+            </Routes>
+          </React.Suspense>
+        </div>
+      </div>
+    );
+  }
 }
 
 type mapDispatchPropsType = {
-    initializeApp: () => void
+  initializeApp: () => void
 }
 
 type mapStateToPropsType = {
-    initialized: boolean
+  initialized: boolean
 }
 
 const mapStateToProps = (state: AppStateType) => ({
-    initialized: state.app.initialized
+  initialized: state.app.initialized
 })
 
 export type AppPropsType = mapStateToPropsType & mapDispatchPropsType
@@ -68,11 +69,11 @@ export type AppPropsType = mapStateToPropsType & mapDispatchPropsType
 let AppContainer = connect(mapStateToProps, {initializeApp})(App);
 
 const SamuraiJSApp = () => {
-    return <HashRouter>
-        <Provider store={store}>
-            <AppContainer/>
-        </Provider>
-    </HashRouter>
+  return <HashRouter>
+    <Provider store={store}>
+      <AppContainer/>
+    </Provider>
+  </HashRouter>
 }
 
 export default SamuraiJSApp;
