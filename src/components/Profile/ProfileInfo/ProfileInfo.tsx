@@ -6,6 +6,8 @@ import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
 import userPhoto from "../../../assets/images/user.jpg";
 import {ProfileDataFormReduxForm} from "./ProfileDataForm";
 import {FormDataType} from "../../Login/Login";
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../../redux/redux-store";
 
 type ProfileInfoProps = {
   profile: any | null
@@ -66,10 +68,13 @@ type ProfileDataType = {
 }
 
 export const ProfileData = ({profile, isOwner, goToEditMode}: ProfileDataType) => {
+
+  const fullName = useSelector<AppStateType, string | null>(state => state.auth.login)
+
   return (
     <>
       {isOwner && <button onClick={goToEditMode}>edit</button>}
-      <h2>{profile.fullName}</h2>
+      <h2>{fullName}</h2>
       <div><b>About Me: </b> {profile.aboutMe}</div>
       <div><b>Looking for a job: </b> {profile.lookingForAJob ? 'yes' : 'no'}</div>
       {profile.lookingForAJob &&

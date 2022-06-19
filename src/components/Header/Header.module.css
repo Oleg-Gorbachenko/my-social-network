@@ -1,15 +1,31 @@
 .header {
-    grid-area: h;
-    background-color:#42a5f5;
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #045ca6;
+    align-items: center;
+    height: 50px;
 }
-.header img {
-    width: 100px;
+
+.wrapper {
+    display: flex;
+    justify-content: space-between;
 }
 
 .loginBlock {
-    float: right;
+    width: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*border-right: 1px solid black;*/
 }
 
-.loginBlock a {
-    color: white;
+.avatar {
+    width: 50px;
+    margin-right: 10px;
+}
+
+.userName {
+    font-weight: bold;
+    font-size: 16px;
+    color: gold;
 }

@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
-import {Navbar} from "./components/Navbar/Navbar";
-import {HashRouter, Route, Routes, Navigate} from "react-router-dom";
+import {HashRouter, Navigate, Route, Routes} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
@@ -29,24 +28,25 @@ class App extends React.Component<AppPropsType, initialStateType> {
     }
 
     return (
-      <div className="app-wrapper">
+      <div className="App">
         <HeaderContainer/>
-        <Navbar/>
-        <div className='app-wrapper-content'>
-          <React.Suspense fallback={<Preloader/>}>
-            <Routes>
-              <Route path='/dialogs/*' element={<DialogsContainer/>}/>
-              <Route path='/' element={<Navigate to='/login'/>}/>
-              <Route path='/profile/:userId' element={<ProfileContainer/>}/>
-              <Route path='/profile' element={<ProfileContainer/>}/>
-              <Route path='/news/*' element={<News/>}/>
-              <Route path='/music/*' element={<Music/>}/>
-              <Route path='/users/*' element={<UsersContainer/>}/>
-              <Route path='/settings/*' element={<Settings/>}/>
-              <Route path='/login/*' element={<Login/>}/>
-              <Route path='*' element={<div>404 NOT FOUND</div>}/>
-            </Routes>
-          </React.Suspense>
+        <div className='container'>
+          <div className='app-wrapper-content'>
+            <React.Suspense fallback={<Preloader/>}>
+              <Routes>
+                <Route path='/dialogs/*' element={<DialogsContainer/>}/>
+                <Route path='/' element={<Navigate to='/login'/>}/>
+                <Route path='/profile/:userId' element={<ProfileContainer/>}/>
+                <Route path='/profile' element={<ProfileContainer/>}/>
+                <Route path='/news/*' element={<News/>}/>
+                <Route path='/music/*' element={<Music/>}/>
+                <Route path='/users/*' element={<UsersContainer/>}/>
+                <Route path='/settings/*' element={<Settings/>}/>
+                <Route path='/login/*' element={<Login/>}/>
+                <Route path='*' element={<div>404 NOT FOUND</div>}/>
+              </Routes>
+            </React.Suspense>
+          </div>
         </div>
       </div>
     );
