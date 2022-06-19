@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {Navbar} from "./components/Navbar/Navbar";
-import {HashRouter, Route, Routes} from "react-router-dom";
+import {HashRouter, Route, Routes, Navigate} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
@@ -36,6 +36,7 @@ class App extends React.Component<AppPropsType, initialStateType> {
           <React.Suspense fallback={<Preloader/>}>
             <Routes>
               <Route path='/dialogs/*' element={<DialogsContainer/>}/>
+              <Route path='/' element={<Navigate to='/login'/>}/>
               <Route path='/profile/:userId' element={<ProfileContainer/>}/>
               <Route path='/profile' element={<ProfileContainer/>}/>
               <Route path='/news/*' element={<News/>}/>

@@ -61,12 +61,14 @@ type LoginPropsType = mapStateToPropsType & mapDispatchPropsType
 
 export const Login = (props: LoginPropsType) => {
 
+  const userId = useSelector<AppStateType, number | null>(state => state.auth.userId)
+
   const onSubmit = (formData: FormDataType) => {
     props.login(formData.email, formData.password, formData.rememberMe)
   }
 
   if (props.isAuth) {
-    return <Navigate to={"/profile/22956"}/>
+    return <Navigate to={`/profile/${userId}`}/>
   }
   return (
     <div>
