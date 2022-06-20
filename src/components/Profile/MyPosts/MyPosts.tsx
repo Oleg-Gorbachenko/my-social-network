@@ -1,10 +1,11 @@
 import React, {memo} from "react";
-import classes from './MyPosts.module.css'
+import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
 import {MyPostsPropsType} from "./MyPostsContainer";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxLengthCreator, minLengthCreator, required} from "../../../utils/validators/validators";
 import {Textarea} from "../../common/FormsControls/FormsControls";
+import {Button} from "../../common/Button/Button";
 
 
 export const MyPosts = memo((props: MyPostsPropsType) => {
@@ -19,12 +20,12 @@ export const MyPosts = memo((props: MyPostsPropsType) => {
     }
 
     return (
-        <div className={classes.postBlock}>
-            <h3>My posts</h3>
+        <div className={s.postBlock}>
+            <h2>My posts</h2>
             <div>
                 <AddPostReduxForm onSubmit={addNewPost}/>
             </div>
-            <div className={classes.posts}>
+            <div className={s.posts}>
                 {postsElements}
             </div>
         </div>
@@ -34,21 +35,22 @@ export const MyPosts = memo((props: MyPostsPropsType) => {
 type AddPostFormType = {
     newPostText: string
 }
+
 const maxLength10 = maxLengthCreator(10)
 const minLength2 = minLengthCreator(2)
 
 export const AddPostForm: React.FC<InjectedFormProps<AddPostFormType>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
-            <div>
+            <div className={s.formWrapper}>
                 <Field
                     component={Textarea}
                     name='newPostText'
                     placeholder='Enter your message'
                     validate={[required, maxLength10, minLength2]}/>
             </div>
-            <div>
-                <button>Add post</button>
+            <div className={s.button}>
+                <Button name={'Add post'}/>
             </div>
         </form>
     );

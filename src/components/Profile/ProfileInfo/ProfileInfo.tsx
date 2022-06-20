@@ -8,6 +8,7 @@ import {ProfileDataFormReduxForm} from "./ProfileDataForm";
 import {FormDataType} from "../../Login/Login";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../../redux/redux-store";
+import {Button} from "../../common/Button/Button";
 
 type ProfileInfoProps = {
   profile: any | null
@@ -19,7 +20,10 @@ type ProfileInfoProps = {
 }
 
 export const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile}: ProfileInfoProps) => {
+
+  const fullName = useSelector<AppStateType, string | null>(state => state.auth.login)
   const [editMode, setEditMode] = useState(false)
+
   if (!profile) {
     return <Preloader/>
   }
@@ -38,14 +42,19 @@ export const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, 
   }
   // @ts-ignore
   return (
-    <div>
-      <div className={s.descriptionBlock}>
-        <img src={profile.photos.large || userPhoto} className={s.mainPhoto} alt="photo"/>
-        {isOwner && <input type={'file'} onChange={onMainPhotoSelected}/>}
+    <div className={s.wrapper}>
+      <div className={s.mainBlock}>
+        <div className={s.userProfile}>
+          <div className={s.userPicture}>
+            <img src={profile.photos.large || userPhoto} className={s.mainPhoto} alt="photo"/>
+          </div>
+        </div>
+        {isOwner && <div className={s.userSpec}><input type={'file'} onChange={onMainPhotoSelected}/></div>}
+        <h1 className={s.fullName}>{fullName}</h1>
         <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
-        {editMode ? <ProfileDataFormReduxForm onSubmit={onSubmit} initialValues={profile}/> :
-          <ProfileData profile={profile} isOwner={isOwner} goToEditMode={() => setEditMode(true)}/>}
       </div>
+      {editMode ? <ProfileDataFormReduxForm onSubmit={onSubmit} initialValues={profile}/> :
+        <ProfileData profile={profile} isOwner={isOwner} goToEditMode={() => setEditMode(true)}/>}
     </div>
   )
 }
@@ -69,12 +78,9 @@ type ProfileDataType = {
 
 export const ProfileData = ({profile, isOwner, goToEditMode}: ProfileDataType) => {
 
-  const fullName = useSelector<AppStateType, string | null>(state => state.auth.login)
-
   return (
-    <>
-      {isOwner && <button onClick={goToEditMode}>edit</button>}
-      <h2>{fullName}</h2>
+    <div className={s.descriptionBlock}>
+      {isOwner && <Button onClick={goToEditMode} name={'edit'}/>}
       <div><b>About Me: </b> {profile.aboutMe}</div>
       <div><b>Looking for a job: </b> {profile.lookingForAJob ? 'yes' : 'no'}</div>
       {profile.lookingForAJob &&
@@ -84,8 +90,6 @@ export const ProfileData = ({profile, isOwner, goToEditMode}: ProfileDataType) =
         return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]}/>
       })}
       </div>
-    </>
+    </div>
   )
 }
-
-

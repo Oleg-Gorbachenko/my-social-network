@@ -17,27 +17,30 @@ header, main, footer, article, aside, hgroup, menu, nav, section, details, figca
 .App {
     display: flex;
     flex-direction: column;
-    /*background: linear-gradient(180deg, #76baf1 0%, #045ca6 100%);*/
-    background: #76baf1;
+    background-color: #8fc4ef;
     height: 100%;
-    min-height: 100vh;
+}
 
+.header {
+    /*background: #76baf1;*/
+    /*height: 50px;*/
 }
 
 .container {
-    width: 60%;
-    margin: 0 auto;
+    height: 100%;
+    width: 50%;
+    margin: 80px auto;
+    background-color: #8fc4ef;
+    /*background-color: #045ca6;*/
 }
 
 h1 {
-    color: #2D2E46;
     font-size: 26px;
     font-weight: 600;
     line-height: 39px;
 }
 
 h2 {
-    color: #2D2E46;
     font-size: 22px;
     font-weight: 600;
     line-height: 33px;
@@ -45,7 +48,6 @@ h2 {
 }
 
 h4 {
-    color: #2D2E46;
     font-size: 18px;
     font-weight: 600;
     margin: 20px 0;

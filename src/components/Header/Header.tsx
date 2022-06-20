@@ -1,10 +1,9 @@
 import React from "react";
-import styles from './Header.module.css'
+import s from './Header.module.css'
 import {NavLink} from "react-router-dom";
 import {Navbar} from "../Navbar/Navbar";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {Button} from "../common/Button/Button";
 
 type HeaderPropsType = {
   isAuth: boolean
@@ -18,18 +17,20 @@ export const Header = (props: HeaderPropsType) => {
   const userName = useSelector<AppStateType, string>(state => state.profilePage.profile.fullName)
 
   return (
-    <header className={styles.header}>
-      <Navbar/>
-      {props.isAuth
-        ?
-        <div className={styles.wrapper}>
-          <div className={styles.loginBlock}>
-            <img className={styles.avatar} src={avatar} alt="ava"/>
-            <div className={styles.userName}> {userName}</div>
+    <header className={s.header}>
+      <div className={s.container}>
+        <Navbar/>
+        {props.isAuth
+          ?
+          <div className={s.wrapper}>
+            <div className={s.loginBlock}>
+              <img className={s.avatar} src={avatar} alt="ava"/>
+              <div className={s.userName}> {userName}</div>
+            </div>
+            <div className={s.logout} onClick={props.logout}>{'Logout'}</div>
           </div>
-          <Button red onClick={props.logout} name={'Logout'}/>
-        </div>
-        : <NavLink to={'/Login'}>Login</NavLink>}
+          : <NavLink to={'/Login'}>Login</NavLink>}
+      </div>
     </header>
   )
 }

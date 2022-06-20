@@ -3,6 +3,7 @@ import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 import {ProfileType} from "../../redux/profile-reducer";
 import {FormDataType} from "../Login/Login";
+import s from './Profile.module.css'
 
 type ProfilePropsType = {
     profile: ProfileType | null
@@ -15,7 +16,7 @@ type ProfilePropsType = {
 
 export const Profile = (props: ProfilePropsType) => {
     return (
-        <div>
+        <div className={s.wrapper}>
             <ProfileInfo profile={props.profile}
                          status={props.status}
                          updateStatus={props.updateStatus}

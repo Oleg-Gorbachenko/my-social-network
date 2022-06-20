@@ -1,7 +1,7 @@
 .default {
     background: darkorange;
     border: none;
-    /*border-radius: 30px;*/
+    border-radius: 30px;
     box-shadow: 0 4px 18px rgba(33, 38, 143, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
     color: #ECECF9;
     cursor: pointer;
@@ -12,6 +12,7 @@
     padding: 8px 40px;
     text-align: center;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+    max-width: 180px;
 }
 
 .default:hover {

@@ -1,22 +1,32 @@
 .header {
-    display: flex;
-    justify-content: space-evenly;
-    background-color: #045ca6;
-    align-items: center;
+    background: #1990f1;
     height: 50px;
+    position: fixed;
+    z-index: 20;
+    top: 0;
+    width: 100%;
+    box-shadow: 0 4px 18px rgba(33, 38, 143, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.container {
+    width: 50%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .wrapper {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .loginBlock {
-    width: 160px;
+    width: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
-    /*border-right: 1px solid black;*/
 }
 
 .avatar {
@@ -28,4 +38,12 @@
     font-weight: bold;
     font-size: 16px;
     color: gold;
+}
+
+.logout {
+    font-weight: bold;
+    color: #b03c3c;
+    border-left: 1px solid black;
+    margin-left: 25px;
+    padding-left: 20px;
 }
