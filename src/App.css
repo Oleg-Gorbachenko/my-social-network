@@ -18,12 +18,7 @@ header, main, footer, article, aside, hgroup, menu, nav, section, details, figca
     display: flex;
     flex-direction: column;
     background-color: #8fc4ef;
-    height: 100%;
-}
-
-.header {
-    /*background: #76baf1;*/
-    /*height: 50px;*/
+    min-height: 100vh;
 }
 
 .container {
@@ -31,7 +26,6 @@ header, main, footer, article, aside, hgroup, menu, nav, section, details, figca
     width: 50%;
     margin: 80px auto;
     background-color: #8fc4ef;
-    /*background-color: #045ca6;*/
 }
 
 h1 {
