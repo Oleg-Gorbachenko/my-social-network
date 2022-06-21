@@ -8,16 +8,17 @@ import {reducer as formReducer} from "redux-form";
 import {appReducer} from "./app-reducer";
 
 export const rootReducer = combineReducers({
-    profilePage: profileReducer,
-    dialogsPage: dialogsReducer,
-    usersPage: usersReducer,
-    auth: authReducer,
-    form: formReducer,
-    app: appReducer,
+  profilePage: profileReducer,
+  dialogsPage: dialogsReducer,
+  usersPage: usersReducer,
+  auth: authReducer,
+  form: formReducer,
+  app: appReducer,
 })
 
 export type AppStateType = ReturnType<typeof rootReducer>
 
-export const store = createStore(rootReducer,applyMiddleware(thunkMiddleware))
+export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
 
-
+//@ts-ignore
+window.store = store

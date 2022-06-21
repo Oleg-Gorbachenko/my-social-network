@@ -2,6 +2,7 @@ import {ActionsTypes, ThunkDispatchType} from "./store";
 import {authAPI, securityAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 import {AppStateType} from "./redux-store";
+import {getUsersProfile} from "./profile-reducer";
 
 const SET_USER_DATA = "auth/SET_USER_DATA";
 const GET_CAPTCHA_URL_SUCCESS = "auth/GET_CAPTCHA_URL_SUCCESS";
@@ -68,6 +69,7 @@ export const getAuthUserData = () => async (dispatch: ThunkDispatchType) => {
   if (response.data.resultCode === 0) {
     let {id, email, login} = response.data.data
     dispatch(setAuthUserData(id, email, login, true))
+    await dispatch(getUsersProfile(id))
   }
 }
 

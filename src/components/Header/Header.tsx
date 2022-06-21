@@ -15,7 +15,7 @@ export const Header = (props: HeaderPropsType) => {
 
   const avatar = useSelector<AppStateType, string>(state => state.profilePage.profile.photos.small)
   const userName = useSelector<AppStateType, string>(state => state.profilePage.profile.fullName)
-
+  console.log(avatar)
   return (
     <header className={s.header}>
       <div className={s.container}>
