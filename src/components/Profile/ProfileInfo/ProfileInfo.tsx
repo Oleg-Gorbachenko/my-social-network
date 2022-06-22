@@ -21,7 +21,7 @@ type ProfileInfoProps = {
 
 export const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile}: ProfileInfoProps) => {
 
-  const fullName = useSelector<AppStateType, string | null>(state => state.auth.login)
+  const userName = useSelector<AppStateType, string>(state => state.profilePage.profile.fullName)
   const [editMode, setEditMode] = useState(false)
 
   if (!profile) {
@@ -50,7 +50,7 @@ export const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, 
           </div>
         </div>
         {isOwner && <div className={s.userSpec}><input type={'file'} onChange={onMainPhotoSelected}/></div>}
-        <h1 className={s.fullName}>{fullName}</h1>
+        <h1 className={s.fullName}>{userName}</h1>
         <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
       </div>
       {editMode ? <ProfileDataFormReduxForm onSubmit={onSubmit} initialValues={profile}/> :
