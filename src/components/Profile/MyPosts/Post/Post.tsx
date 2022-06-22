@@ -3,6 +3,7 @@ import s from './Post.module.css'
 import {PostType} from "../../../../redux/profile-reducer";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../../../redux/redux-store";
+import userPhoto from "../../../../assets/images/user.jpg";
 
 export const Post = (props: PostType) => {
 
@@ -12,7 +13,7 @@ export const Post = (props: PostType) => {
   return (
     <div className={s.container}>
       <div className={s.header}>
-        <img className={s.avatar} src={avatar} alt="avatar"/>
+        <img className={s.avatar} src={avatar || userPhoto} alt="avatar"/>
         <div>{userName}</div>
       </div>
       <div className={s.main}>{props.message}</div>
