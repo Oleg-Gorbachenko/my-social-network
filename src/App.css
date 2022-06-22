@@ -50,3 +50,8 @@ h4 {
 b {
     font-weight: bold;
 }
+
+.wrapper {
+    /*display: flex;*/
+    /*justify-content: center;*/
+}

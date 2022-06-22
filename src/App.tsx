@@ -31,7 +31,7 @@ class App extends React.Component<AppPropsType, initialStateType> {
       <div className="App">
         <HeaderContainer/>
         <div className='container'>
-          <div className='app-wrapper-content'>
+          <div className='wrapper'>
             <React.Suspense fallback={<Preloader/>}>
               <Routes>
                 <Route path='/dialogs/*' element={<DialogsContainer/>}/>

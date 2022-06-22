@@ -1,0 +1,22 @@
+.description {
+    background-color: #8fc4ef;
+    width: 280px;
+    border-radius: 4px;
+    padding: 10px;
+    color: #03457c;
+}
+
+.button {
+    margin: 20px 0;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #1990f1;
+    border-radius: 4px;
+    width: 60%;
+    box-shadow: 0 4px 18px rgba(33, 38, 143, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}

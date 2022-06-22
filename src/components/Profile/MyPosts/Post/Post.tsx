@@ -6,7 +6,7 @@ import {AppStateType} from "../../../../redux/redux-store";
 
 export const Post = (props: PostType) => {
 
-  const avatar = useSelector<AppStateType, string>(state => state.profilePage.profile.photos.small)
+  const avatar = useSelector<AppStateType, string>(state => state.profilePage.myPhoto)
   const userName = useSelector<AppStateType, string | null>(state => state.auth.login)
 
   return (
@@ -16,9 +16,9 @@ export const Post = (props: PostType) => {
         <div>{userName}</div>
       </div>
       <div className={s.main}>{props.message}</div>
-        <div className={s.footer}>
-          <span>Likes: </span>{props.likesCount}
-        </div>
+      <div className={s.footer}>
+        <span>Likes: </span>{props.likesCount}
+      </div>
     </div>
   )
 }

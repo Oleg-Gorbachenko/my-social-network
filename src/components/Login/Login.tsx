@@ -7,6 +7,8 @@ import {login, logout, setCaptchaUrl} from "../../redux/auth-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {Navigate} from "react-router-dom";
 import styles from "../common/FormsControls/FormsControls.module.css";
+import {Button} from "../common/Button/Button";
+import s from './Login.module.css';
 
 
 export type FormDataType = {
@@ -22,7 +24,6 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubm
 
   const InputHandler = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setCaptchaUrl(e.currentTarget.value))
-    console.log(captchaUrl)
   }
 
   return (
@@ -35,8 +36,8 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubm
       {error && <div className={styles.formSummaryError}>
         {error}
       </div>}
-      <div>
-        <button>Login</button>
+      <div className={s.button}>
+        <Button name={'Login'}/>
       </div>
     </form>
   );
@@ -71,10 +72,10 @@ export const Login = (props: LoginPropsType) => {
     return <Navigate to={`/profile/${userId}`}/>
   }
   return (
-    <div>
+    <div className={s.wrapper}>
       <h1>LOGIN</h1>
       <LoginReduxForm onSubmit={onSubmit}/>
-      <div>
+      <div className={s.description}>
         <h3>Данные для тестового аккаунта:</h3>
         <div>Email: free@samuraijs.com</div>
         <div>Password: free</div>
