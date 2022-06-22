@@ -13,6 +13,7 @@
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
+    height: 100%;
     align-items: center;
 }
 
@@ -42,8 +43,9 @@
 
 .logout {
     font-weight: bold;
-    color: #b03c3c;
+    color: #880a0a;
     border-left: 1px solid black;
     margin-left: 25px;
     padding-left: 20px;
+    cursor: pointer;
 }
