@@ -53,14 +53,12 @@ export const authReducer = (state: initialStateType = initialState, action: Acti
   }
 }
 
-//action creator
+//action creators
 export const setAuthUserData = (userId: number | null, email: string | null, login: string | null, isAuth: boolean) => ({
   type: SET_USER_DATA,
   userId, email, login, isAuth
 } as const)
-
 export const getCaptchaUrlSuccess = (captchaUrl: string) => ({type: GET_CAPTCHA_URL_SUCCESS, captchaUrl} as const)
-
 export const setCaptchaUrl = (currentCaptchaValue: string) => ({type: SET_CAPTCHA_URL, currentCaptchaValue} as const)
 
 //thunks
@@ -77,10 +75,10 @@ export const login = (email: string, password: string, rememberMe: boolean) => a
   const captcha = getState().auth.currentCaptchaValue
   let response = await authAPI.login(email, password, rememberMe, captcha)
   if (response.data.resultCode === 0) {
-    dispatch(getAuthUserData())
+    await dispatch(getAuthUserData())
   } else {
     if (response.data.resultCode === 10) {
-      dispatch(getCaptchaUrl())
+      await dispatch(getCaptchaUrl())
     }
     let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error"
     dispatch(stopSubmit("login", {_error: message}))

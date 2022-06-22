@@ -14,7 +14,7 @@ type HeaderPropsType = {
 
 export const Header = (props: HeaderPropsType) => {
 
-  const avatar = useSelector<AppStateType, string>(state => state.profilePage.profile.photos.small)
+  const avatar = useSelector<AppStateType, string>(state => state.profilePage.myPhoto)
   const fullName = useSelector<AppStateType, string | null>(state => state.auth.login)
 
   return (

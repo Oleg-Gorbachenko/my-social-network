@@ -5,40 +5,40 @@ import {UsersType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
 
 type UsersPropsType = {
-    user: UsersType
-    follow: (userId: string) => void
-    unfollow: (userId: string) => void
-    followingInProgress: string[]
+  user: UsersType
+  follow: (userId: string) => void
+  unfollow: (userId: string) => void
+  followingInProgress: string[]
 }
 
 export const User = ({
-                         user,
-                         follow,
-                         unfollow,
-                         followingInProgress,
+                       user,
+                       follow,
+                       unfollow,
+                       followingInProgress,
                      }: UsersPropsType) => {
-    return (
-        <div>
+  return (
+    <div>
             <span>
                     <div>
                         <NavLink to={'/profile/' + user.id}>
                         <img
-                            src={user.photos.small !== null ? user.photos.small : userPhoto}
-                            alt="ava"
-                            className={styles.userPhoto}/>
+                          src={user.photos.small || userPhoto}
+                          alt="ava"
+                          className={styles.userPhoto}/>
                              </NavLink>
                     </div>
                     <div>
                         {user.followed
-                            ? <button disabled={followingInProgress.some(id => id === user.id)} onClick={() => {
-                                unfollow(user.id)
-                            }}>Unfollow</button>
-                            : <button disabled={followingInProgress.some(id => id === user.id)} onClick={() => {
-                                follow(user.id)
-                            }}>Follow</button>}
+                          ? <button disabled={followingInProgress.some(id => id === user.id)} onClick={() => {
+                            unfollow(user.id)
+                          }}>Unfollow</button>
+                          : <button disabled={followingInProgress.some(id => id === user.id)} onClick={() => {
+                            follow(user.id)
+                          }}>Follow</button>}
                     </div>
             </span>
-            <span>
+      <span>
                     <span>
                         <div>{user.name}</div>
                         <div>{user.status}</div>
@@ -47,5 +47,5 @@ export const User = ({
                         <div>{'u.location.city'}</div>
                     </span>
             </span>
-        </div>)
+    </div>)
 }

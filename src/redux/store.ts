@@ -1,4 +1,4 @@
-import {addPostAC, deletePost, savePhotoSuccess, setStatus, setUserProfile} from "./profile-reducer";
+import {addPostAC, deletePost, savePhotoSuccess, setMyPhoto, setStatus, setUserProfile} from "./profile-reducer";
 import {addMessage} from "./dialogs-reducer";
 import {
     followSuccess,
@@ -33,6 +33,7 @@ export type ActionsTypes =
     | ReturnType<typeof savePhotoSuccess>
     | ReturnType<typeof getCaptchaUrlSuccess>
     | ReturnType<typeof setCaptchaUrl>
+    | ReturnType<typeof setMyPhoto>
 
 
 export type ThunkDispatchType = ThunkDispatch<AppStateType, unknown, ActionsTypes | FormAction>;
