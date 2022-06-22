@@ -1,29 +1,37 @@
 import React from "react";
 import classes from './Navbar.module.css'
 import {NavLink} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../redux/redux-store";
 
 
 export const Navbar = () => {
-    return (
-        <nav className={classes.nav}>
-            <div className={classes.item}>
-                <NavLink to={'/profile/22956'} className = { navData => navData.isActive ? classes.active : classes.item }>Profile</NavLink>
-            </div>
-            <div className={`${classes.item} ${classes.active}`}>
-                <NavLink to={'/dialogs'} className = { navData => navData.isActive ? classes.active : classes.item }>Messages</NavLink>
-            </div>
-            <div className={classes.item}>
-                <NavLink to={'/news'} className = { navData => navData.isActive ? classes.active : classes.item }>News</NavLink>
-            </div>
-            <div className={classes.item}>
-                <NavLink to={'/music'} className = { navData => navData.isActive ? classes.active : classes.item }>Music</NavLink>
-            </div>
-            <div className={classes.item}>
-                <NavLink to={'/users'} className = { navData => navData.isActive ? classes.active : classes.item }>Users</NavLink>
-            </div>
-            <div className={classes.item}>
-                <NavLink to={'/settings'} className = { navData => navData.isActive ? classes.active : classes.item }>Settings</NavLink>
-            </div>
-        </nav>
-    )
+
+  const userId = useSelector<AppStateType, number | null>(state => state.auth.userId)
+
+  return (
+    <nav className={classes.nav}>
+      <div className={classes.item}>
+        <NavLink to={`/profile/${userId}`}
+                 className={navData => navData.isActive ? classes.active : classes.item}>Profile</NavLink>
+      </div>
+      <div className={`${classes.item} ${classes.active}`}>
+        <NavLink to={'/dialogs'}
+                 className={navData => navData.isActive ? classes.active : classes.item}>Messages</NavLink>
+      </div>
+      <div className={classes.item}>
+        <NavLink to={'/news'} className={navData => navData.isActive ? classes.active : classes.item}>News</NavLink>
+      </div>
+      <div className={classes.item}>
+        <NavLink to={'/music'} className={navData => navData.isActive ? classes.active : classes.item}>Music</NavLink>
+      </div>
+      <div className={classes.item}>
+        <NavLink to={'/users'} className={navData => navData.isActive ? classes.active : classes.item}>Users</NavLink>
+      </div>
+      <div className={classes.item}>
+        <NavLink to={'/settings'}
+                 className={navData => navData.isActive ? classes.active : classes.item}>Settings</NavLink>
+      </div>
+    </nav>
+  )
 }
